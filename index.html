@@ -6,29 +6,34 @@
   <meta name="theme-color" content="#eaf2f8">
   <title>The Wedding of Dewi & Didi</title>
   <style>
-    :root{--silver:#a9b4c1;--ink:#263445}
+    :root{--silver:#aebdcd;--ice:#eaf3fb;--ink:#26394f;--blue:#395a78;--pale:#f9fbfe}
     *{box-sizing:border-box}
-    body{margin:0;background:radial-gradient(circle at top,#fff 0,#eaf2f8 55%,#d8e5f0 100%);color:var(--ink);font-family:Georgia,"Times New Roman",serif;min-height:100vh}
-    .wrap{width:min(100% - 28px,520px);margin:0 auto;padding:26px 0 34px;text-align:center}
-    .crest{width:72px;height:72px;border:1px solid #aeb9c5;border-radius:50%;display:grid;place-items:center;margin:0 auto 16px;color:#8292a3;font-size:30px;box-shadow:0 0 0 5px #ffffff80}
-    .eyebrow{letter-spacing:.22em;text-transform:uppercase;font:10px Arial,sans-serif;color:#74879b}
-    h1{font-weight:normal;font-size:clamp(28px,7vw,39px);line-height:1.08;margin:10px 0 7px}
-    .amp{color:#8297ad;font-style:italic}
-    .date{font:12px Arial,sans-serif;letter-spacing:.2em;color:#5f7388;margin:0 0 24px}
-    .intro{font-size:15px;line-height:1.6;color:#617285;margin:0 auto 22px;max-width:340px}
-    .panel{background:#ffffffb8;border:1px solid #c2ccd6;border-radius:22px;padding:15px;box-shadow:0 16px 40px #6b80951c}
-    video{width:100%;display:block;border-radius:14px;background:#18212b;aspect-ratio:3/4;object-fit:cover;transform:scaleX(-1)}
-    #result{width:100%;display:block;border-radius:14px}
+    body{margin:0;background:radial-gradient(ellipse at top,#fff 0,#edf4fa 42%,#d7e4f0 100%);color:var(--ink);font-family:Georgia,"Times New Roman",serif;min-height:100vh}
+    .wrap{width:min(100% - 28px,560px);margin:0 auto;padding:30px 0 38px;text-align:center}
+    .crest{width:78px;height:78px;border:1px solid #9baec1;border-radius:50%;display:grid;place-items:center;margin:0 auto 16px;color:#718ba5;font-size:34px;box-shadow:0 0 0 5px #ffffffa8,0 0 0 8px #b9c9d8;position:relative;background:linear-gradient(145deg,#fff,#e6eff8)}
+    .crest:before,.crest:after{content:"❧";position:absolute;color:#8ca3ba;font-size:17px;top:28px}.crest:before{left:-20px;transform:rotate(-35deg)}.crest:after{right:-20px;transform:scaleX(-1) rotate(-35deg)}
+    .eyebrow{letter-spacing:.25em;text-transform:uppercase;font:10px Arial,sans-serif;color:#748ba3}
+    h1{font-weight:normal;font-size:clamp(30px,7vw,42px);line-height:1.04;margin:10px 0 8px;text-shadow:0 1px #fff}
+    .amp{color:#8aa3bd;font-style:italic}
+    .date{font:11px Arial,sans-serif;letter-spacing:.22em;color:#5f7892;margin:0 0 20px}
+    .intro{font-size:15px;line-height:1.65;color:#5c7188;margin:0 auto 23px;max-width:360px}
+    .divider{height:1px;width:150px;background:linear-gradient(90deg,transparent,#a6b9cb,transparent);margin:16px auto;position:relative}.divider:after{content:"✧";position:absolute;left:calc(50% - 8px);top:-10px;padding:0 7px;background:#edf4fa;color:#8ca3bb;font-size:14px}
+    .panel{position:relative;background:linear-gradient(145deg,#fff,#f3f7fc);border:1px solid #b3c2d2;border-radius:25px;padding:13px;box-shadow:0 18px 45px #405c781c, inset 0 0 0 4px #fff, inset 0 0 0 5px #d4e0eb}
+    .panel:before{content:"✦";position:absolute;z-index:2;left:22px;top:18px;color:#dce8f3;text-shadow:0 1px #536f8b;font-size:17px;pointer-events:none}
+    .panel:after{content:"✦";position:absolute;z-index:2;right:22px;top:18px;color:#dce8f3;text-shadow:0 1px #536f8b;font-size:17px;pointer-events:none}
+    video{width:100%;display:block;border-radius:12px;background:#18212b;aspect-ratio:3/4;object-fit:cover;transform:scaleX(-1);border:1px solid #a9bacb}
+    #result{width:100%;display:block;border-radius:12px;border:1px solid #a9bacb;box-shadow:0 0 0 4px #fff,0 0 0 5px #d0dce7}
     .hidden{display:none!important}
-    .actions{display:flex;flex-wrap:wrap;justify-content:center;gap:9px;margin-top:15px}
-    button,.download{border:0;border-radius:999px;padding:13px 17px;font:600 13px Arial,sans-serif;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:44px}
-    .primary{background:#344b63;color:white;box-shadow:0 5px 12px #344b6325}
-    .secondary{background:#e5edf4;color:#344b63;border:1px solid #c8d4df}
-    .status{font:12px/1.5 Arial,sans-serif;color:#607286;min-height:20px;margin:13px 4px 0}
-    .foot{font:10px Arial,sans-serif;color:#7a8b9c;letter-spacing:.12em;margin-top:21px}
-    .divider{height:1px;width:100px;background:linear-gradient(90deg,transparent,#aebbc8,transparent);margin:16px auto}
-    .small{font:11px/1.5 Arial,sans-serif;color:#78899a;margin:12px auto 0;max-width:360px}
+    .actions{display:flex;flex-wrap:wrap;justify-content:center;gap:9px;margin-top:17px}
+    button,.download{border:1px solid transparent;border-radius:999px;padding:13px 18px;font:600 13px Arial,sans-serif;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:45px;transition:transform .15s,box-shadow .15s}
+    button:hover,.download:hover{transform:translateY(-1px)}
+    .primary{background:linear-gradient(135deg,#29435d,#526f8d);color:white;box-shadow:0 6px 15px #344b6330;border-color:#8299b0}
+    .secondary{background:linear-gradient(135deg,#f7fbff,#e1ebf5);color:#344b63;border-color:#c0d0df}
+    .status{font:12px/1.5 Arial,sans-serif;color:#60768d;min-height:20px;margin:14px 4px 0}
+    .foot{font:10px Arial,sans-serif;color:#7a8fa4;letter-spacing:.16em;margin-top:23px}
+    .small{font:11px/1.5 Arial,sans-serif;color:#788da1;margin:12px auto 0;max-width:360px}
     button:disabled{opacity:.5;cursor:wait}
+    @media(max-width:420px){.wrap{padding-top:22px}.panel{padding:10px}.crest{width:68px;height:68px}.intro{font-size:14px}}
   </style>
 </head>
 <body>
@@ -85,23 +90,28 @@
   function capturePhoto(){
     if(!video.videoWidth){setStatus('Kamera belum siap. Coba beberapa detik lagi.');return}
     const w=Math.min(video.videoWidth,1200), h=Math.round(w*video.videoHeight/video.videoWidth);
-    canvas.width=w;canvas.height=h+Math.round(w*.25);
+    canvas.width=w;canvas.height=h+Math.round(w*.30);
     const ctx=canvas.getContext('2d');
     ctx.save();ctx.translate(w,0);ctx.scale(-1,1);ctx.drawImage(video,0,0,w,h);ctx.restore();
-    // Bingkai bawah silver/royal
-    ctx.fillStyle='#f7f9fc';ctx.fillRect(0,h,w,canvas.height-h);
-    ctx.strokeStyle='#a9b7c5';ctx.lineWidth=Math.max(2,w*.003);ctx.strokeRect(8,8,w-16,canvas.height-16);
-    ctx.strokeStyle='#a9b7c5';ctx.lineWidth=Math.max(1,w*.002);
-    ctx.beginPath();ctx.moveTo(w*.2,h+10);ctx.lineTo(w*.8,h+10);ctx.stroke();
-    ctx.textAlign='center';ctx.fillStyle='#34485d';
-    ctx.font=`${Math.round(w*.034)}px Georgia,serif`;ctx.fillText('THE WEDDING OF',w/2,h+Math.round(w*.055));
-    ctx.font=`${Math.round(w*.05)}px Georgia,serif`;ctx.fillText('DEWI  ✧  DIDI',w/2,h+Math.round(w*.105));
-    ctx.font=`${Math.round(w*.024)}px Arial,sans-serif`;ctx.fillStyle='#6c7f92';ctx.fillText('06 DESEMBER 2026',w/2,h+Math.round(w*.145));
-    // Ornamen sudut
-    ctx.strokeStyle='#71869a';ctx.lineWidth=Math.max(1.5,w*.002);
-    [[18,18,1,1],[w-18,18,-1,1],[18,canvas.height-18,1,-1],[w-18,canvas.height-18,-1,-1]].forEach(([x,y,sx,sy])=>{
-      ctx.save();ctx.translate(x,y);ctx.scale(sx,sy);ctx.beginPath();ctx.moveTo(0,22);ctx.quadraticCurveTo(0,0,22,0);ctx.lineTo(8,8);ctx.stroke();ctx.restore();
+    // Bingkai royal silver-biru dengan garis ganda dan ornamen sudut
+    const band=Math.round(w*.30);
+    const grad=ctx.createLinearGradient(0,h,w,canvas.height);grad.addColorStop(0,'#fbfdff');grad.addColorStop(.5,'#eaf2fa');grad.addColorStop(1,'#fdfefe');
+    ctx.fillStyle=grad;ctx.fillRect(0,h,w,band);
+    ctx.strokeStyle='#9aafc4';ctx.lineWidth=Math.max(2,w*.003);ctx.strokeRect(9,9,w-18,canvas.height-18);
+    ctx.strokeStyle='#c1cfdd';ctx.lineWidth=Math.max(1,w*.0015);ctx.strokeRect(15,15,w-30,canvas.height-30);
+    // garis pemisah berornamen
+    ctx.strokeStyle='#91a8bf';ctx.lineWidth=Math.max(1,w*.0018);ctx.beginPath();ctx.moveTo(w*.18,h+Math.round(w*.035));ctx.lineTo(w*.42,h+Math.round(w*.035));ctx.moveTo(w*.58,h+Math.round(w*.035));ctx.lineTo(w*.82,h+Math.round(w*.035));ctx.stroke();
+    ctx.textAlign='center';ctx.fillStyle='#506b86';ctx.font=`${Math.round(w*.024)}px Arial,sans-serif`;ctx.fillText('✧  A ROYAL CELEBRATION  ✧',w/2,h+Math.round(w*.065));
+    ctx.fillStyle='#263f59';ctx.font=`${Math.round(w*.037)}px Georgia,serif`;ctx.fillText('THE WEDDING OF',w/2,h+Math.round(w*.115));
+    ctx.font=`${Math.round(w*.061)}px Georgia,serif`;ctx.fillText('DEWI  ✧  DIDI',w/2,h+Math.round(w*.185));
+    ctx.fillStyle='#6b8299';ctx.font=`${Math.round(w*.026)}px Arial,sans-serif`;ctx.fillText('06 DESEMBER 2026',w/2,h+Math.round(w*.235));
+    // sudut bergaya ukiran heraldik
+    ctx.strokeStyle='#6f89a4';ctx.fillStyle='#829bb4';ctx.lineWidth=Math.max(1.5,w*.002);
+    [[20,20,1,1],[w-20,20,-1,1],[20,canvas.height-20,1,-1],[w-20,canvas.height-20,-1,-1]].forEach(([x,y,sx,sy])=>{
+      ctx.save();ctx.translate(x,y);ctx.scale(sx,sy);ctx.beginPath();ctx.moveTo(0,31);ctx.quadraticCurveTo(0,0,31,0);ctx.lineTo(10,10);ctx.lineTo(17,17);ctx.stroke();ctx.beginPath();ctx.arc(4,4,2.5,0,Math.PI*2);ctx.fill();ctx.restore();
     });
+    // permata kecil di tengah garis atas
+    ctx.fillStyle='#819ab3';ctx.beginPath();ctx.moveTo(w/2,h+Math.round(w*.022));ctx.lineTo(w/2+5,h+Math.round(w*.035));ctx.lineTo(w/2,h+Math.round(w*.048));ctx.lineTo(w/2-5,h+Math.round(w*.035));ctx.closePath();ctx.fill();
     latestDataUrl=canvas.toDataURL('image/jpeg',.88);result.src=latestDataUrl;downloadBtn.href=latestDataUrl;
     show(video,false);show(result,true);show(cameraActions,false);show(resultActions,true);stopCamera();
     setStatus('Foto selesai! Mengirim ke Drive…');uploadAutomatically(latestDataUrl);
