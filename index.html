@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="id">
 <head>
@@ -5,107 +6,397 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#eaf3fc">
 <title>The Wedding Of Dewi &amp; Didi</title>
+
 <style>
-:root{--ice:#eaf3fc;--deep:#294e73;--blue:#3b6e9b}
-*{box-sizing:border-box}
-body{margin:0;min-height:100vh;padding:18px 12px 28px;background:radial-gradient(ellipse at top,#fff 0,#edf6ff 48%,#dceafa 100%);color:var(--deep);font-family:Georgia,"Times New Roman",serif}
-main{width:min(100%,510px);margin:auto;text-align:center}
-header{padding:8px 4px 18px}
-h1{font-weight:400;font-size:clamp(30px,7vw,43px);line-height:1.08;margin:0 0 9px}
-.date{font:600 11px Arial,sans-serif;letter-spacing:3px;color:#6689ad}
-.intro{font-size:15px;line-height:1.6;margin:16px 0 4px}
-.booth{padding:10px;background:#ffffffa8;border:1px solid #bfd4e8;border-radius:22px;box-shadow:0 15px 40px #345b8020}
-.stage{position:relative;width:100%;aspect-ratio:2/3;overflow:hidden;background:#dceaf7}
-#camera,#result{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-#camera{transform:scaleX(-1)}
-#result{display:none}
-#frame{position:absolute;inset:0;width:100%;height:100%;object-fit:fill;pointer-events:none}
-.controls{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:15px 0 7px}
-button{border:1px solid #b5cce3;border-radius:999px;padding:12px 18px;font:600 13px Arial,sans-serif;cursor:pointer}
-.primary{background:linear-gradient(135deg,#2e5c86,#5e8db9);color:white;box-shadow:0 5px 14px #24496d25}
-.secondary{background:#f5f9fe;color:#345b80}
-button:disabled{opacity:.5;cursor:not-allowed}
-.status{font:12px/1.5 Arial,sans-serif;color:#52789e;min-height:19px;margin:10px 4px}
-.note{font:11px/1.6 Arial,sans-serif;color:#7290ad;margin:8px auto 0;max-width:390px}
-.hidden{display:none!important}
-@media(max-width:380px){body{padding:10px 7px}.booth{padding:6px}}
+:root {
+  --ice: #eaf3fc;
+  --deep: #294e73;
+  --blue: #3b6e9b;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  padding: 20px 12px 30px;
+  background: radial-gradient(ellipse at top, #fff 0%, #edf6ff 48%, #dceafa 100%);
+  color: var(--deep);
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+main {
+  width: min(100%, 760px);
+  margin: auto;
+  text-align: center;
+}
+
+header {
+  padding: 8px 4px 18px;
+}
+
+h1 {
+  font-weight: 400;
+  font-size: clamp(30px, 6vw, 44px);
+  line-height: 1.08;
+  margin: 0 0 10px;
+}
+
+.date {
+  font: 600 11px Arial, sans-serif;
+  letter-spacing: 3px;
+  color: #6689ad;
+}
+
+.intro {
+  font-size: 15px;
+  line-height: 1.6;
+  margin: 16px 0 4px;
+}
+
+.booth {
+  width: 100%;
+  padding: 12px;
+  background: #ffffffd9;
+  border: 1px solid #bfd4e8;
+  border-radius: 20px;
+  box-shadow: 0 15px 40px #345b8020;
+}
+
+/* AREA KAMERA LANDSCAPE */
+.stage {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: #dceaf7;
+  border-radius: 8px;
+}
+
+#camera,
+#result {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+#camera {
+  transform: scaleX(-1);
+}
+
+#result {
+  display: none;
+}
+
+/* Bingkai PNG mengikuti area landscape */
+#frame {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  pointer-events: none;
+}
+
+.controls {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 15px 0 7px;
+}
+
+button {
+  border: 1px solid #b5cce3;
+  border-radius: 999px;
+  padding: 12px 18px;
+  font: 600 13px Arial, sans-serif;
+  cursor: pointer;
+}
+
+.primary {
+  background: linear-gradient(135deg, #2e5c86, #5e8db9);
+  color: white;
+  box-shadow: 0 5px 14px #24496d25;
+}
+
+.secondary {
+  background: #f5f9fe;
+  color: #345b80;
+}
+
+button:disabled {
+  opacity: .5;
+  cursor: not-allowed;
+}
+
+.status {
+  font: 12px/1.5 Arial, sans-serif;
+  color: #52789e;
+  min-height: 19px;
+  margin: 10px 4px;
+}
+
+.note {
+  font: 11px/1.6 Arial, sans-serif;
+  color: #7290ad;
+  margin: 8px auto 0;
+  max-width: 520px;
+}
+
+.hidden {
+  display: none !important;
+}
+
+@media (max-width: 480px) {
+  body {
+    padding: 12px 8px 22px;
+  }
+
+  .booth {
+    padding: 7px;
+    border-radius: 15px;
+  }
+
+  .stage {
+    aspect-ratio: 4 / 3;
+  }
+
+  button {
+    padding: 11px 14px;
+    font-size: 12px;
+  }
+}
 </style>
 </head>
+
 <body>
 <main>
-<header>
-<h1>The Wedding Of<br>Dewi &amp; Didi</h1>
-<div class="date">06 DESEMBER 2026</div>
-<p class="intro">Abadikan momen bahagia bersama kami.<br>Siapkan senyum terbaikmu! ♡</p>
-</header>
-<section class="booth">
-<div class="stage">
-<video id="camera" autoplay playsinline muted></video>
-<canvas id="result"></canvas>
-<img id="frame" src="frame-dewi-didi.png" alt="">
-</div>
-<div class="controls">
-<button id="captureBtn" class="primary">📷 Ambil Foto</button>
-<button id="retakeBtn" class="secondary hidden">↻ Ambil Ulang</button>
-<button id="downloadBtn" class="primary hidden">↓ Unduh Foto</button>
-</div>
-<div id="status" class="status">Mengaktifkan kamera…</div>
-<p class="note">Foto dapat diunduh ke perangkat. Salinan dikirim ke Google Drive jika konfigurasi unggah admin benar. Pastikan file frame-dewi-didi.png ikut diunggah ke GitHub.</p>
-</section>
+  <header>
+    <h1>The Wedding Of<br>Dewi &amp; Didi</h1>
+    <div class="date">06 DESEMBER 2026</div>
+    <p class="intro">
+      Abadikan momen bahagia bersama kami.<br>
+      Siapkan senyum terbaikmu! ♡
+    </p>
+  </header>
+
+  <section class="booth">
+    <div class="stage">
+      <video id="camera" autoplay playsinline muted></video>
+      <canvas id="result"></canvas>
+      <img id="frame" src="frame-dewi-didi.png" alt="">
+    </div>
+
+    <div class="controls">
+      <button id="captureBtn" class="primary">📷 Ambil Foto</button>
+      <button id="retakeBtn" class="secondary hidden">↻ Ambil Ulang</button>
+      <button id="downloadBtn" class="primary hidden">↓ Unduh Foto</button>
+    </div>
+
+    <div id="status" class="status">Mengaktifkan kamera…</div>
+
+    <p class="note">
+      Hasil foto bisa diunduh ke perangkat. Salinan juga akan dikirim
+      ke Google Drive jika konfigurasi unggah berhasil.
+    </p>
+  </section>
 </main>
+
 <script>
-const UPLOAD_URL = 'https://script.google.com/macros/s/AKfycbw5jNsua3HsKkbxORw4XYgqxSMec45SfVRRmBdta3xs4x9-Y51jt8BpMPYsZqaxpFmR/exec';
+const UPLOAD_URL =
+  'https://script.google.com/macros/s/AKfycbw5jNsua3HsKkbxORw4XYgqxSMec45SfVRRmBdta3xs4x9-Y51jt8BpMPYsZqaxpFmR/exec';
+
 const UPLOAD_KEY = 'DewiDidi2026';
-const video=document.getElementById('camera'), canvas=document.getElementById('result');
-const ctx=canvas.getContext('2d'), frame=document.getElementById('frame');
-const captureBtn=document.getElementById('captureBtn'), retakeBtn=document.getElementById('retakeBtn');
-const downloadBtn=document.getElementById('downloadBtn'), statusEl=document.getElementById('status');
-let latestDataUrl='',stream=null;
-function setStatus(s){statusEl.textContent=s}
-async function startCamera(){
- try{
-  if(!navigator.mediaDevices?.getUserMedia)throw new Error('No camera');
-  stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:'user',width:{ideal:1280},height:{ideal:1920}},audio:false});
-  video.srcObject=stream;await video.play();setStatus('Kamera siap. Tekan “Ambil Foto”.');
- }catch(e){setStatus('Kamera tidak terbuka. Izinkan akses kamera di browser lalu muat ulang.');captureBtn.disabled=true}
+
+const video = document.getElementById('camera');
+const canvas = document.getElementById('result');
+const ctx = canvas.getContext('2d');
+const frame = document.getElementById('frame');
+
+const captureBtn = document.getElementById('captureBtn');
+const retakeBtn = document.getElementById('retakeBtn');
+const downloadBtn = document.getElementById('downloadBtn');
+const statusEl = document.getElementById('status');
+
+let latestDataUrl = '';
+let stream = null;
+
+function setStatus(message) {
+  statusEl.textContent = message;
 }
-function drawCover(source,x,y,w,h,mirror=false){
- const sw=source.videoWidth||source.naturalWidth||source.width, sh=source.videoHeight||source.naturalHeight||source.height;
- const scale=Math.max(w/sw,h/sh), cw=w/scale,ch=h/scale,sx=(sw-cw)/2,sy=(sh-ch)/2;
- ctx.save();
- if(mirror){ctx.translate(x+w,y);ctx.scale(-1,1);ctx.drawImage(source,sx,sy,cw,ch,0,0,w,h)}
- else ctx.drawImage(source,sx,sy,cw,ch,x,y,w,h);
- ctx.restore();
+
+async function startCamera() {
+  try {
+    if (!navigator.mediaDevices?.getUserMedia) {
+      throw new Error('Camera not supported');
+    }
+
+    stream = await navigator.mediaDevices.getUserMedia({
+      video: {
+        facingMode: 'user',
+        width: { ideal: 1920 },
+        height: { ideal: 1080 }
+      },
+      audio: false
+    });
+
+    video.srcObject = stream;
+    await video.play();
+
+    setStatus('Kamera siap. Atur posisi, lalu tekan Ambil Foto.');
+  } catch (error) {
+    setStatus('Kamera tidak terbuka. Izinkan akses kamera lalu muat ulang halaman.');
+    captureBtn.disabled = true;
+  }
 }
-function drawPhoto(){
- const W=1024,H=1536;canvas.width=W;canvas.height=H;
- ctx.fillStyle='#eaf3fc';ctx.fillRect(0,0,W,H);
- // Use a wider portrait crop so the saved image includes more than just the face.
- drawCover(video,0,0,W,H,true);
- // The frame PNG has a transparent, large photo window and the wedding lettering built in.
- ctx.drawImage(frame,0,0,W,H);
- latestDataUrl=canvas.toDataURL('image/jpeg',.94);
+
+/* Memenuhi area landscape tanpa menarik atau merusak proporsi foto */
+function drawCover(source, x, y, w, h, mirror = false) {
+  const sw = source.videoWidth || source.naturalWidth || source.width;
+  const sh = source.videoHeight || source.naturalHeight || source.height;
+
+  if (!sw || !sh) {
+    throw new Error('Sumber foto belum siap');
+  }
+
+  const scale = Math.max(w / sw, h / sh);
+  const cropW = w / scale;
+  const cropH = h / scale;
+  const sx = (sw - cropW) / 2;
+  const sy = (sh - cropH) / 2;
+
+  ctx.save();
+
+  if (mirror) {
+    ctx.translate(x + w, y);
+    ctx.scale(-1, 1);
+    ctx.drawImage(
+      source,
+      sx, sy, cropW, cropH,
+      0, 0, w, h
+    );
+  } else {
+    ctx.drawImage(
+      source,
+      sx, sy, cropW, cropH,
+      x, y, w, h
+    );
+  }
+
+  ctx.restore();
 }
-async function uploadAutomatically(dataUrl){
- try{
-  setStatus('Foto siap. Mengirim salinan ke Google Drive…');
-  await fetch(UPLOAD_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({key:UPLOAD_KEY,image:dataUrl})});
-  setStatus('Permintaan unggah dikirim. Periksa folder Drive untuk memastikan foto tersimpan.');
- }catch(e){setStatus('Pengiriman ke Drive gagal. Silakan unduh foto sebagai cadangan.')}
+
+function drawPhoto() {
+  /* HASIL FOTO LANDSCAPE */
+  const W = 1200;
+  const H = 900;
+
+  canvas.width = W;
+  canvas.height = H;
+
+  ctx.fillStyle = '#eaf3fc';
+  ctx.fillRect(0, 0, W, H);
+
+  /* Foto kamera memenuhi bidang landscape */
+  drawCover(video, 0, 0, W, H, true);
+
+  /* PNG ornamen menumpang di atas foto */
+  ctx.drawImage(frame, 0, 0, W, H);
+
+  latestDataUrl = canvas.toDataURL('image/jpeg', 0.94);
 }
-captureBtn.addEventListener('click',async()=>{
- if(!video.videoWidth){setStatus('Kamera belum siap. Tunggu sebentar.');return}
- if(!frame.complete||!frame.naturalWidth){setStatus('File frame-dewi-didi.png belum terbaca. Pastikan file itu ada di GitHub.');return}
- captureBtn.disabled=true;
- try{drawPhoto();video.style.display='none';frame.style.display='none';canvas.style.display='block';captureBtn.classList.add('hidden');retakeBtn.classList.remove('hidden');downloadBtn.classList.remove('hidden');await uploadAutomatically(latestDataUrl)}
- catch(e){setStatus('Gagal membuat foto. Coba muat ulang halaman.');captureBtn.disabled=false}
+
+async function uploadAutomatically(dataUrl) {
+  setStatus('Foto dibuat. Mengirim permintaan penyimpanan ke Google Drive…');
+
+  try {
+    await fetch(UPLOAD_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: {
+        'Content-Type': 'text/plain;charset=utf-8'
+      },
+      body: JSON.stringify({
+        key: UPLOAD_KEY,
+        image: dataUrl
+      })
+    });
+
+    /*
+      Mode no-cors tidak memungkinkan halaman memeriksa
+      jawaban server. Periksa folder Drive untuk memastikan.
+    */
+    setStatus('Permintaan unggah dikirim. Periksa folder Drive untuk memastikan foto tersimpan.');
+  } catch (error) {
+    setStatus('Pengiriman ke Drive gagal. Silakan unduh foto sebagai cadangan.');
+  }
+}
+
+captureBtn.addEventListener('click', async () => {
+  if (!video.videoWidth) {
+    setStatus('Kamera belum siap. Tunggu sebentar.');
+    return;
+  }
+
+  if (!frame.complete || !frame.naturalWidth) {
+    setStatus('File frame-dewi-didi.png belum terbaca. Pastikan file ada di GitHub.');
+    return;
+  }
+
+  captureBtn.disabled = true;
+
+  try {
+    drawPhoto();
+
+    video.style.display = 'none';
+    frame.style.display = 'none';
+    canvas.style.display = 'block';
+
+    captureBtn.classList.add('hidden');
+    retakeBtn.classList.remove('hidden');
+    downloadBtn.classList.remove('hidden');
+
+    await uploadAutomatically(latestDataUrl);
+  } catch (error) {
+    setStatus('Gagal membuat foto. Muat ulang halaman lalu coba lagi.');
+    captureBtn.disabled = false;
+  }
 });
-retakeBtn.addEventListener('click',()=>{
- latestDataUrl='';canvas.style.display='none';video.style.display='block';frame.style.display='block';captureBtn.classList.remove('hidden');captureBtn.disabled=false;retakeBtn.classList.add('hidden');downloadBtn.classList.add('hidden');setStatus('Kamera siap. Tekan “Ambil Foto”.')
+
+retakeBtn.addEventListener('click', () => {
+  latestDataUrl = '';
+
+  canvas.style.display = 'none';
+  video.style.display = 'block';
+  frame.style.display = 'block';
+
+  captureBtn.classList.remove('hidden');
+  captureBtn.disabled = false;
+  retakeBtn.classList.add('hidden');
+  downloadBtn.classList.add('hidden');
+
+  setStatus('Kamera siap. Atur posisi, lalu tekan Ambil Foto.');
 });
-downloadBtn.addEventListener('click',()=>{
- if(!latestDataUrl)return;const a=document.createElement('a');a.href=latestDataUrl;a.download='The_Wedding_Of_Dewi_Didi.jpg';document.body.appendChild(a);a.click();a.remove()
+
+downloadBtn.addEventListener('click', () => {
+  if (!latestDataUrl) return;
+
+  const link = document.createElement('a');
+  link.href = latestDataUrl;
+  link.download = 'The_Wedding_Of_Dewi_Didi.jpg';
+
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
 });
+
 startCamera();
 </script>
 </body>
