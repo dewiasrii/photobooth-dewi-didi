@@ -80,17 +80,11 @@ function drawCover(source,x,y,w,h,mirror=false){
 function drawPhoto(){
  const W=1024,H=1536;canvas.width=W;canvas.height=H;
  ctx.fillStyle='#eaf3fc';ctx.fillRect(0,0,W,H);
- // The photo is drawn first, then the decorative transparent frame is placed on top.
+ // Use a wider portrait crop so the saved image includes more than just the face.
  drawCover(video,0,0,W,H,true);
+ // The frame PNG has a transparent, large photo window and the wedding lettering built in.
  ctx.drawImage(frame,0,0,W,H);
- // Print the couple's wording into the blank lower nameplate area.
- ctx.textAlign='center';ctx.fillStyle='#294e73';
- ctx.shadowColor='rgba(255,255,255,.7)';ctx.shadowBlur=5;
- ctx.font='42px Georgia';ctx.fillText('The Wedding Of',W/2,1250);
- ctx.font='bold 66px Georgia';ctx.fillText('DEWI & DIDI',W/2,1325);
- ctx.font='26px Arial';ctx.letterSpacing='5px';ctx.fillText('06 DESEMBER 2026',W/2,1375);
- ctx.shadowBlur=0;
- latestDataUrl=canvas.toDataURL('image/jpeg',.92);
+ latestDataUrl=canvas.toDataURL('image/jpeg',.94);
 }
 async function uploadAutomatically(dataUrl){
  try{
