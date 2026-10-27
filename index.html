@@ -15,9 +15,9 @@ h1{font-weight:400;font-size:clamp(29px,6vw,43px);line-height:1.08;margin:0 0 9p
 .date{font:600 11px Arial,sans-serif;letter-spacing:3px;color:#6689ad}
 .intro{font-size:14px;line-height:1.55;margin:13px 0 3px}
 .booth{width:100%;padding:9px;background:#ffffffd9;border:1px solid #bfd4e8;border-radius:18px;box-shadow:0 15px 40px #345b8020}
-.stage{position:relative!important;width:100%!important;height:auto!important;aspect-ratio:4/3!important;min-height:0!important;overflow:hidden;background:#e2edf8;border-radius:9px}
+.stage{position:relative;width:100%;aspect-ratio:4/3;overflow:hidden;background:#dfeaf5;border-radius:9px}
 #camera,#result{position:absolute;inset:0;width:100%;height:100%;display:block}
-#camera{object-fit:contain;transform:scaleX(-1);background:#e2edf8}
+#camera{object-fit:cover;object-position:center 38%;transform:scaleX(-1);background:#dfeaf5}
 #result{display:none;object-fit:contain}
 #frame{position:absolute;inset:0;width:100%;height:100%;object-fit:fill;pointer-events:none}
 .controls{display:flex;justify-content:center;gap:9px;flex-wrap:wrap;margin:14px 0 7px}
@@ -28,7 +28,7 @@ button:disabled{opacity:.5;cursor:not-allowed}
 .status{font:12px/1.5 Arial,sans-serif;color:#52789e;min-height:19px;margin:10px 4px}
 .note{font:11px/1.6 Arial,sans-serif;color:#7290ad;margin:8px auto 0;max-width:540px}
 .hidden{display:none!important}
-@media(max-width:600px){body{padding:10px 6px 20px}.booth{padding:6px;border-radius:14px}.stage{aspect-ratio:4/3!important}button{padding:11px 13px;font-size:12px}}
+@media(max-width:600px){body{padding:10px 6px 20px}.booth{padding:6px;border-radius:14px}.stage{aspect-ratio:4/3}button{padding:11px 13px;font-size:12px}}
 </style>
 </head>
 <body>
@@ -39,7 +39,7 @@ button:disabled{opacity:.5;cursor:not-allowed}
 <p class="intro">Abadikan momen bahagia bersama kami.<br>Siapkan senyum terbaikmu! ♡</p>
 </header>
 <section class="booth">
-<div class="stage" id="stage">
+<div class="stage">
 <video id="camera" autoplay playsinline muted></video>
 <canvas id="result"></canvas>
 <img id="frame" src="frame-dewi-didi.png" alt="">
@@ -50,7 +50,7 @@ button:disabled{opacity:.5;cursor:not-allowed}
 <button id="downloadBtn" class="primary hidden">↓ Unduh Foto</button>
 </div>
 <div id="status" class="status">Mengaktifkan kamera…</div>
-<p class="note">Pastikan lensa bersih dan cahaya cukup. Jika preview tetap portrait, pastikan halaman terbaru sudah terbit dan file frame adalah versi landscape.</p>
+<p class="note">Posisikan wajah di tengah area kosong bingkai. Untuk hasil lebih tajam, gunakan cahaya terang dan bersihkan lensa.</p>
 </section>
 </main>
 <script>
@@ -62,31 +62,34 @@ let latestDataUrl='',stream=null;
 function setStatus(s){statusEl.textContent=s}
 async function startCamera(){
  try{
-  stream=await navigator.mediaDevices.getUserMedia({audio:false,video:{facingMode:{ideal:'user'},width:{ideal:1280},height:{ideal:720}}});
+  stream=await navigator.mediaDevices.getUserMedia({audio:false,video:{facingMode:{ideal:'user'},width:{ideal:1280},height:{ideal:720},aspectRatio:{ideal:4/3}}});
   video.srcObject=stream;await video.play();
   const track=stream.getVideoTracks()[0];
-  if(track?.getCapabilities){
-   const c=track.getCapabilities();
-   if(c.zoom&&Number.isFinite(c.zoom.min)){try{await track.applyConstraints({advanced:[{zoom:c.zoom.min}]})}catch(e){}}
+  if(track&&track.getCapabilities){
+   const caps=track.getCapabilities();
+   if(caps.zoom&&Number.isFinite(caps.zoom.min)){try{await track.applyConstraints({advanced:[{zoom:caps.zoom.min}]})}catch(e){}}
   }
-  setStatus('Kamera siap. Tampilan photobooth dibuat landscape.');
+  setStatus('Kamera siap. Posisikan wajah di tengah area foto.');
  }catch(e){setStatus('Kamera tidak terbuka. Izinkan akses kamera di browser lalu muat ulang.');captureBtn.disabled=true}
 }
-function drawContain(source,x,y,w,h,mirror=false){
+/* Match preview exactly: fill landscape frame and crop only as much as required. */
+function drawCover(source,W,H,mirror=false){
  const sw=source.videoWidth||source.naturalWidth,sh=source.videoHeight||source.naturalHeight;
- if(!sw||!sh)throw Error('Sumber kamera belum siap');
- const scale=Math.min(w/sw,h/sh),dw=sw*scale,dh=sh*scale,dx=x+(w-dw)/2,dy=y+(h-dh)/2;
+ if(!sw||!sh)throw Error('Kamera belum siap');
+ const scale=Math.max(W/sw,H/sh),cropW=W/scale,cropH=H/scale;
+ // Aim slightly above center so the face sits higher, clear of the bottom plaque.
+ const sx=(sw-cropW)/2,sy=Math.max(0,Math.min(sh-cropH,(sh-cropH)*0.30));
  ctx.save();
- if(mirror){ctx.translate(dx+dw,dy);ctx.scale(-1,1);ctx.drawImage(source,0,0,sw,sh,0,0,dw,dh)}
- else ctx.drawImage(source,0,0,sw,sh,dx,dy,dw,dh);
+ if(mirror){ctx.translate(W,0);ctx.scale(-1,1);ctx.drawImage(source,sx,sy,cropW,cropH,0,0,W,H)}
+ else ctx.drawImage(source,sx,sy,cropW,cropH,0,0,W,H);
  ctx.restore();
 }
 function drawPhoto(){
  const W=1200,H=900;canvas.width=W;canvas.height=H;
- ctx.fillStyle='#e2edf8';ctx.fillRect(0,0,W,H);
- drawContain(video,0,0,W,H,true);
+ ctx.fillStyle='#dfeaf5';ctx.fillRect(0,0,W,H);
+ drawCover(video,W,H,true);
  if(frame.complete&&frame.naturalWidth)ctx.drawImage(frame,0,0,W,H);
- latestDataUrl=canvas.toDataURL('image/jpeg',0.92);
+ latestDataUrl=canvas.toDataURL('image/jpeg',0.94);
 }
 async function uploadAutomatically(dataUrl){
  setStatus('Mengirim permintaan penyimpanan ke Google Drive…');
@@ -108,11 +111,10 @@ captureBtn.addEventListener('click',async()=>{
 retakeBtn.addEventListener('click',()=>{
  latestDataUrl='';canvas.style.display='none';video.style.display='block';frame.style.display='block';
  captureBtn.classList.remove('hidden');captureBtn.disabled=false;retakeBtn.classList.add('hidden');downloadBtn.classList.add('hidden');
- setStatus('Kamera siap. Atur posisi, lalu tekan Ambil Foto.');
+ setStatus('Kamera siap. Posisikan wajah di tengah area foto.');
 });
 downloadBtn.addEventListener('click',()=>{
- if(!latestDataUrl)return;
- const a=document.createElement('a');a.href=latestDataUrl;a.download='The_Wedding_Of_Dewi_Didi.jpg';document.body.appendChild(a);a.click();a.remove();
+ if(!latestDataUrl)return;const a=document.createElement('a');a.href=latestDataUrl;a.download='The_Wedding_Of_Dewi_Didi.jpg';document.body.appendChild(a);a.click();a.remove();
 });
 startCamera();
 </script>
