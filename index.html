@@ -1,104 +1,121 @@
 <!doctype html>
 <html lang="id">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#e7f1fb">
-<title>The Wedding Of Dewi & Didi</title>
-<style>
-:root{--ice:#eaf3fc;--blue:#9dbde0;--deep:#294867;--silver:#c5d5e7;--white:#fff}
-*{box-sizing:border-box}
-body{margin:0;min-height:100vh;color:var(--deep);font-family:Georgia,'Times New Roman',serif;background:radial-gradient(ellipse at 50% 5%,#fff 0,#edf5fd 45%,#d5e5f5 100%)}
-body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.24;background-image:radial-gradient(#fff 1px,transparent 1px);background-size:17px 17px}
-.wrap{position:relative;width:min(100% - 26px,570px);margin:auto;padding:27px 0 34px;text-align:center}
-.top-ornament{width:210px;margin:0 auto 12px;color:#7698bd;display:flex;align-items:center;gap:10px;justify-content:center;font-size:24px}
-.top-ornament:before,.top-ornament:after{content:"";height:1px;flex:1;background:linear-gradient(90deg,transparent,#9cb8d7)}.top-ornament:after{transform:scaleX(-1)}
-h1{font-size:clamp(30px,7vw,43px);font-weight:normal;line-height:1.08;margin:0 0 12px;color:#294867;text-shadow:0 1px #fff}
-.date{font:11px Arial,sans-serif;letter-spacing:.24em;color:#607fa1;margin:0 0 20px}
-.intro{font-size:15px;line-height:1.65;color:#536f8f;margin:0 auto 22px}
-.panel{position:relative;padding:14px;border:1px solid #9fb8d4;border-radius:24px;background:linear-gradient(145deg,#fff,#e6f0fa);box-shadow:0 18px 42px #3c60841c,inset 0 0 0 4px #fff,inset 0 0 0 6px #c8d9ea}
-.panel:before,.panel:after{position:absolute;z-index:3;top:20px;color:#7898ba;font-size:20px;pointer-events:none;text-shadow:0 1px white}.panel:before{content:'❧';left:23px}.panel:after{content:'❧';right:23px;transform:scaleX(-1)}
-video,#result{width:100%;display:block;aspect-ratio:3/4;object-fit:cover;border-radius:10px;border:1px solid #8faac8;background:#172a40}
-video{transform:scaleX(-1)}#result{box-shadow:0 0 0 4px #fff,0 0 0 6px #bfd1e4}
-.hidden{display:none!important}.actions{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:17px}
-button,.download{border:1px solid transparent;border-radius:999px;padding:13px 18px;font:600 13px Arial,sans-serif;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:45px;transition:transform .15s,box-shadow .15s}
-button:hover,.download:hover{transform:translateY(-1px)}.primary{background:linear-gradient(135deg,#315b85,#648bb5);color:white;box-shadow:0 6px 15px #344b6330;border-color:#a4bdd8}.secondary{background:linear-gradient(135deg,#fff,#e1edf9);color:#345779;border-color:#b6cbe0}
-.status{font:12px/1.5 Arial,sans-serif;color:#607b99;min-height:20px;margin:14px 4px 0}.small{font:11px/1.5 Arial,sans-serif;color:#7289a3;margin:12px auto 0;max-width:370px}.foot{font:10px Arial,sans-serif;color:#718ba8;letter-spacing:.16em;margin-top:22px}button:disabled{opacity:.55;cursor:wait}
-@media(max-width:420px){.wrap{padding-top:20px}.panel{padding:10px}.intro{font-size:14px}}
-</style></head>
-<body><main class="wrap">
-<div class="top-ornament" aria-hidden="true">✧</div>
-<h1>The Wedding Of<br>Dewi <span style="color:#83a5ca">&amp;</span> Didi</h1>
-<p class="date">06 DESEMBER 2026</p>
-<section class="panel">
-<video id="video" autoplay playsinline muted></video><canvas id="canvas" class="hidden"></canvas><img id="result" class="hidden" alt="Hasil foto photobooth Dewi dan Didi">
-<div class="actions" id="startActions"><button class="primary" id="startBtn">✧ Buka Kamera</button></div>
-<div class="actions hidden" id="cameraActions"><button class="primary" id="captureBtn">◎ Ambil Foto</button><button class="secondary" id="stopBtn">Tutup Kamera</button></div>
-<div class="actions hidden" id="resultActions"><a id="downloadBtn" class="download primary" download="The-Wedding-Of-Dewi-Didi.jpg">↓ Unduh Foto</a><button class="secondary" id="retakeBtn">↻ Ambil Ulang</button></div>
-<p class="status" id="status" role="status">Tekan “Buka Kamera” lalu izinkan akses kamera.</p>
-<p class="small">Dengan mengambil foto, kamu menyetujui bahwa hasil foto akan dikirim ke Google Drive pasangan pengantin sebagai kenangan acara.</p>
-</section></main>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#eaf2f8">
+  <title>The Wedding of Dewi & Didi</title>
+  <style>
+    :root{--silver:#a9b4c1;--ink:#263445}
+    *{box-sizing:border-box}
+    body{margin:0;background:radial-gradient(circle at top,#fff 0,#eaf2f8 55%,#d8e5f0 100%);color:var(--ink);font-family:Georgia,"Times New Roman",serif;min-height:100vh}
+    .wrap{width:min(100% - 28px,520px);margin:0 auto;padding:26px 0 34px;text-align:center}
+    .crest{width:72px;height:72px;border:1px solid #aeb9c5;border-radius:50%;display:grid;place-items:center;margin:0 auto 16px;color:#8292a3;font-size:30px;box-shadow:0 0 0 5px #ffffff80}
+    .eyebrow{letter-spacing:.22em;text-transform:uppercase;font:10px Arial,sans-serif;color:#74879b}
+    h1{font-weight:normal;font-size:clamp(28px,7vw,39px);line-height:1.08;margin:10px 0 7px}
+    .amp{color:#8297ad;font-style:italic}
+    .date{font:12px Arial,sans-serif;letter-spacing:.2em;color:#5f7388;margin:0 0 24px}
+    .intro{font-size:15px;line-height:1.6;color:#617285;margin:0 auto 22px;max-width:340px}
+    .panel{background:#ffffffb8;border:1px solid #c2ccd6;border-radius:22px;padding:15px;box-shadow:0 16px 40px #6b80951c}
+    video{width:100%;display:block;border-radius:14px;background:#18212b;aspect-ratio:3/4;object-fit:cover;transform:scaleX(-1)}
+    #result{width:100%;display:block;border-radius:14px}
+    .hidden{display:none!important}
+    .actions{display:flex;flex-wrap:wrap;justify-content:center;gap:9px;margin-top:15px}
+    button,.download{border:0;border-radius:999px;padding:13px 17px;font:600 13px Arial,sans-serif;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:44px}
+    .primary{background:#344b63;color:white;box-shadow:0 5px 12px #344b6325}
+    .secondary{background:#e5edf4;color:#344b63;border:1px solid #c8d4df}
+    .status{font:12px/1.5 Arial,sans-serif;color:#607286;min-height:20px;margin:13px 4px 0}
+    .foot{font:10px Arial,sans-serif;color:#7a8b9c;letter-spacing:.12em;margin-top:21px}
+    .divider{height:1px;width:100px;background:linear-gradient(90deg,transparent,#aebbc8,transparent);margin:16px auto}
+    .small{font:11px/1.5 Arial,sans-serif;color:#78899a;margin:12px auto 0;max-width:360px}
+    button:disabled{opacity:.5;cursor:wait}
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <div class="crest" aria-hidden="true">✧</div>
+    <div class="eyebrow">A royal celebration</div>
+    <h1>The Wedding<br>of Dewi <span class="amp">&amp;</span> Didi</h1>
+    <p class="date">06 DESEMBER 2026</p>
+    <div class="divider"></div>
+    <p class="intro">Abadikan momen bahagia bersama kami.<br>Siapkan senyum terbaikmu! ♡</p>
+    <section class="panel">
+      <video id="video" autoplay playsinline muted></video>
+      <canvas id="canvas" class="hidden"></canvas>
+      <img id="result" class="hidden" alt="Hasil foto photobooth Dewi dan Didi">
+      <div class="actions" id="startActions"><button class="primary" id="startBtn">✧ Buka Kamera</button></div>
+      <div class="actions hidden" id="cameraActions">
+        <button class="primary" id="captureBtn">◎ Ambil Foto</button>
+        <button class="secondary" id="stopBtn">Tutup Kamera</button>
+      </div>
+      <div class="actions hidden" id="resultActions">
+        <a id="downloadBtn" class="download primary" download="The-Wedding-of-Dewi-and-Didi.jpg">↓ Unduh Foto</a>
+        <button class="secondary" id="retakeBtn">↻ Ambil Ulang</button>
+      </div>
+      <p class="status" id="status" role="status">Tekan “Buka Kamera” lalu izinkan akses kamera.</p>
+      <p class="small">Dengan mengambil foto, kamu menyetujui bahwa hasil foto akan otomatis dikirim ke Google Drive pasangan pengantin sebagai kenangan acara.</p>
+    </section>
+    <p class="foot">MADE WITH LOVE · DEWI &amp; DIDI</p>
+  </main>
 <script>
-const UPLOAD_URL='https://script.google.com/macros/s/AKfycbw5jNsua3HsKkbxORw4XYgqxSMec45SfVRRmBdta3xs4x9-Y51jt8BpMPYsZqaxpFmR/exec';
-const UPLOAD_KEY='DewiDidi2026';
-const video=document.getElementById('video'),canvas=document.getElementById('canvas'),result=document.getElementById('result'),statusEl=document.getElementById('status');
-const startActions=document.getElementById('startActions'),cameraActions=document.getElementById('cameraActions'),resultActions=document.getElementById('resultActions');
-const startBtn=document.getElementById('startBtn'),captureBtn=document.getElementById('captureBtn'),stopBtn=document.getElementById('stopBtn'),retakeBtn=document.getElementById('retakeBtn'),downloadBtn=document.getElementById('downloadBtn');
-let stream=null,latestDataUrl='';
-function setStatus(t){statusEl.textContent=t}function show(el,yes){el.classList.toggle('hidden',!yes)}
-async function startCamera(){try{if(!navigator.mediaDevices?.getUserMedia)throw new Error('Buka tautan HTTPS di Chrome atau Safari.');stream=await navigator.mediaDevices.getUserMedia({audio:false,video:{facingMode:'user',width:{ideal:1280},height:{ideal:1600}}});video.srcObject=stream;show(video,true);show(result,false);show(startActions,false);show(cameraActions,true);show(resultActions,false);setStatus('Kamera siap. Posisikan wajah dan tekan Ambil Foto.')}catch(err){setStatus('Kamera belum bisa dibuka: '+(err.message||err)+'. Pastikan izin kamera diberikan.')}}
-function stopCamera(){if(stream){stream.getTracks().forEach(t=>t.stop());stream=null}video.srcObject=null}
-function line(ctx,x1,y1,x2,y2,color,width){ctx.strokeStyle=color;ctx.lineWidth=width;ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke()}
-function drawDiamond(ctx,x,y,r,color){ctx.fillStyle=color;ctx.beginPath();ctx.moveTo(x,y-r);ctx.lineTo(x+r*.7,y);ctx.lineTo(x,y+r);ctx.lineTo(x-r*.7,y);ctx.closePath();ctx.fill()}
-function drawDragon(ctx,x,y,scale,flip,color){ctx.save();ctx.translate(x,y);ctx.scale(scale*flip,scale);ctx.strokeStyle=color;ctx.fillStyle=color;ctx.lineWidth=2.1;ctx.lineCap='round';ctx.lineJoin='round';ctx.beginPath();ctx.moveTo(0,18);ctx.bezierCurveTo(-17,8,-20,-5,-10,-15);ctx.bezierCurveTo(-7,-19,-1,-17,0,-12);ctx.bezierCurveTo(6,-18,15,-13,12,-6);ctx.lineTo(5,-3);ctx.lineTo(10,2);ctx.lineTo(3,3);ctx.bezierCurveTo(9,11,7,18,0,21);ctx.stroke();ctx.beginPath();ctx.moveTo(-4,-8);ctx.quadraticCurveTo(-23,-28,-20,-4);ctx.quadraticCurveTo(-13,-7,-8,3);ctx.moveTo(5,-8);ctx.quadraticCurveTo(24,-27,21,-4);ctx.quadraticCurveTo(13,-7,8,3);ctx.stroke();ctx.beginPath();ctx.moveTo(-4,12);ctx.lineTo(-13,19);ctx.lineTo(-6,18);ctx.moveTo(4,12);ctx.lineTo(13,19);ctx.lineTo(6,18);ctx.stroke();ctx.restore()}
-function drawCorner(ctx,x,y,sx,sy,u,c1,c2){ctx.save();ctx.translate(x,y);ctx.scale(sx,sy);ctx.strokeStyle=c1;ctx.lineWidth=1.6;ctx.beginPath();ctx.moveTo(0,60*u);ctx.bezierCurveTo(0,20*u,15*u,0,60*u,0);ctx.lineTo(35*u,12*u);ctx.quadraticCurveTo(22*u,18*u,16*u,35*u);ctx.lineTo(0,60*u);ctx.stroke();ctx.beginPath();ctx.moveTo(7*u,45*u);ctx.quadraticCurveTo(22*u,28*u,8*u,19*u);ctx.quadraticCurveTo(29*u,15*u,34*u,7*u);ctx.stroke();drawDiamond(ctx,8*u,8*u,4*u,c2);ctx.restore()}
-function capturePhoto(){
-if(!video.videoWidth){setStatus('Kamera belum siap. Coba beberapa detik lagi.');return}
-const w=1200, outer=34, photoX=outer+24, photoY=outer+28, photoW=w-2*(outer+24), photoH=Math.round(photoW*1.18), band=Math.round(w*.30), h=photoY+photoH+band+outer;
-canvas.width=w;canvas.height=h;const ctx=canvas.getContext('2d');
-// Soft icy paper background
-const bg=ctx.createLinearGradient(0,0,w,h);bg.addColorStop(0,'#fafdff');bg.addColorStop(.5,'#e8f2fc');bg.addColorStop(1,'#f8fbff');ctx.fillStyle=bg;ctx.fillRect(0,0,w,h);
-// Subtle outer silver-blue frame
-ctx.lineJoin='round';ctx.strokeStyle='#7799bf';ctx.lineWidth=5;ctx.strokeRect(outer,outer,w-2*outer,h-2*outer);
-ctx.strokeStyle='#c3d6e9';ctx.lineWidth=3;ctx.strokeRect(outer+12,outer+12,w-2*(outer+12),h-2*(outer+12));
-ctx.strokeStyle='#ffffff';ctx.lineWidth=2;ctx.strokeRect(outer+20,outer+20,w-2*(outer+20),h-2*(outer+20));
-// Photo well with white mat and blue hairline
-ctx.fillStyle='#fff';ctx.fillRect(photoX-8,photoY-8,photoW+16,photoH+16);
-ctx.strokeStyle='#9cb8d8';ctx.lineWidth=3;ctx.strokeRect(photoX-8,photoY-8,photoW+16,photoH+16);
-// Crop camera image to fit photo well, preserving center and keeping all ornaments outside the photo
-const sw=video.videoWidth, sh=video.videoHeight, targetRatio=photoW/photoH, sourceRatio=sw/sh;
-let sx=0,sy=0,sw2=sw,sh2=sh;
-if(sourceRatio>targetRatio){sw2=sh*targetRatio;sx=(sw-sw2)/2}else{sh2=sw/targetRatio;sy=(sh-sh2)/2}
-ctx.save();ctx.translate(photoX+photoW,photoY);ctx.scale(-1,1);ctx.drawImage(video,sx,sy,sw2,sh2,0,0,photoW,photoH);ctx.restore();
-// Elegant corner scrollwork drawn in the outer mat, never across the photo
-function flourish(x,y,fx,fy){
- ctx.save();ctx.translate(x,y);ctx.scale(fx,fy);ctx.strokeStyle='#7296bd';ctx.lineWidth=3;ctx.lineCap='round';
- ctx.beginPath();ctx.moveTo(0,72);ctx.bezierCurveTo(0,28,22,0,72,0);ctx.bezierCurveTo(50,4,42,20,51,28);ctx.bezierCurveTo(60,36,75,24,68,15);ctx.bezierCurveTo(59,7,48,16,55,23);ctx.stroke();
- ctx.beginPath();ctx.moveTo(10,58);ctx.bezierCurveTo(22,45,20,34,11,28);ctx.bezierCurveTo(31,30,39,17,39,10);ctx.stroke();
- ctx.fillStyle='#9dbde0';ctx.beginPath();ctx.moveTo(18,8);ctx.lineTo(25,18);ctx.lineTo(18,28);ctx.lineTo(11,18);ctx.closePath();ctx.fill();
- ctx.restore();
-}
-flourish(outer+19,outer+19,1,1);flourish(w-outer-19,outer+19,-1,1);
-flourish(outer+19,photoY+photoH+band-5,1,-1);flourish(w-outer-19,photoY+photoH+band-5,-1,-1);
-// Fine rails along the side edges and a restrained center crest above the plaque
-ctx.strokeStyle='#b3cbe3';ctx.lineWidth=2;
-ctx.beginPath();ctx.moveTo(outer+16,photoY+photoH+18);ctx.lineTo(outer+16,h-outer-20);ctx.moveTo(w-outer-16,photoY+photoH+18);ctx.lineTo(w-outer-16,h-outer-20);ctx.stroke();
-// Name plaque
-const plaqueY=photoY+photoH+28, plaqueH=band-34, plaqueX=outer+50, plaqueW=w-2*(outer+50);
-const pg=ctx.createLinearGradient(plaqueX,plaqueY,plaqueX+plaqueW,plaqueY+plaqueH);pg.addColorStop(0,'#f9fcff');pg.addColorStop(.5,'#e5effa');pg.addColorStop(1,'#f9fcff');
-ctx.fillStyle=pg;ctx.strokeStyle='#9eb9d7';ctx.lineWidth=3;
-ctx.beginPath();ctx.moveTo(plaqueX+28,plaqueY);ctx.lineTo(plaqueX+plaqueW-28,plaqueY);ctx.lineTo(plaqueX+plaqueW,plaqueY+24);ctx.lineTo(plaqueX+plaqueW,plaqueY+plaqueH-24);ctx.lineTo(plaqueX+plaqueW-28,plaqueY+plaqueH);ctx.lineTo(plaqueX+28,plaqueY+plaqueH);ctx.lineTo(plaqueX,plaqueY+plaqueH-24);ctx.lineTo(plaqueX,plaqueY+24);ctx.closePath();ctx.fill();ctx.stroke();
-// Restrained ornamental divider
-line(ctx,w*.25,plaqueY+plaqueH*.22,w*.43,plaqueY+plaqueH*.22,'#9ab6d6',2);
-line(ctx,w*.57,plaqueY+plaqueH*.22,w*.75,plaqueY+plaqueH*.22,'#9ab6d6',2);
-drawDiamond(ctx,w/2,plaqueY+plaqueH*.22,13,'#7296bd');
-ctx.textAlign='center';ctx.textBaseline='middle';
-ctx.fillStyle='#456789';ctx.font='36px Georgia,serif';ctx.fillText('The Wedding Of',w/2,plaqueY+plaqueH*.42);
-ctx.fillStyle='#294867';ctx.font='bold 68px Georgia,serif';ctx.fillText('DEWI  ✧  DIDI',w/2,plaqueY+plaqueH*.63);
-ctx.fillStyle='#607f9f';ctx.font='29px Arial,sans-serif';ctx.fillText('06 DESEMBER 2026',w/2,plaqueY+plaqueH*.82);
-// Tiny silver studs on frame corners
-ctx.fillStyle='#fff';[[outer+10,outer+10],[w-outer-10,outer+10],[outer+10,h-outer-10],[w-outer-10,h-outer-10]].forEach(([x,y])=>{ctx.beginPath();ctx.arc(x,y,5,0,Math.PI*2);ctx.fill()});
-latestDataUrl=canvas.toDataURL('image/jpeg',.92);result.src=latestDataUrl;downloadBtn.href=latestDataUrl;show(video,false);show(result,true);show(cameraActions,false);show(resultActions,true);stopCamera();setStatus('Foto selesai! Mengirim ke Drive…');uploadAutomatically(latestDataUrl)}
-async function uploadAutomatically(dataUrl){if(UPLOAD_KEY==='DewiDidi2026'){setStatus('Foto siap diunduh. Admin perlu memasukkan kunci unggah yang benar agar tersimpan ke Drive.');return}try{await fetch(UPLOAD_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({key:UPLOAD_KEY,image:dataUrl})});setStatus('Permintaan simpan dikirim. Silakan unduh foto juga sebagai salinan pribadi.')}catch(e){setStatus('Foto siap diunduh, tetapi pengiriman ke Drive mungkin gagal.')}}
-startBtn.addEventListener('click',startCamera);captureBtn.addEventListener('click',capturePhoto);stopBtn.addEventListener('click',()=>{stopCamera();show(video,false);show(startActions,true);show(cameraActions,false);setStatus('Kamera ditutup.')});retakeBtn.addEventListener('click',()=>{latestDataUrl='';startCamera()});window.addEventListener('pagehide',stopCamera);
-</script></body></html>
+  // URL diisi setelah web app Apps Script di-deploy.
+  const UPLOAD_URL = 'https://script.google.com/macros/s/AKfycbw5jNsua3HsKkbxORw4XYgqxSMec45SfVRRmBdta3xs4x9-Y51jt8BpMPYsZqaxpFmR/exec';
+  const UPLOAD_KEY = 'DewiDidi2026';
+
+  const video=document.getElementById('video'), canvas=document.getElementById('canvas');
+  const result=document.getElementById('result'), statusEl=document.getElementById('status');
+  const startActions=document.getElementById('startActions'), cameraActions=document.getElementById('cameraActions');
+  const resultActions=document.getElementById('resultActions'), startBtn=document.getElementById('startBtn');
+  const captureBtn=document.getElementById('captureBtn'), stopBtn=document.getElementById('stopBtn');
+  const retakeBtn=document.getElementById('retakeBtn'), downloadBtn=document.getElementById('downloadBtn');
+  let stream=null, latestDataUrl='';
+
+  function setStatus(t){statusEl.textContent=t}
+  function show(el,yes){el.classList.toggle('hidden',!yes)}
+  async function startCamera(){
+    try{
+      if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia) throw new Error('Buka tautan HTTPS di Chrome atau Safari.');
+      stream=await navigator.mediaDevices.getUserMedia({audio:false,video:{facingMode:'user',width:{ideal:1280},height:{ideal:1600}}});
+      video.srcObject=stream;show(video,true);show(result,false);show(startActions,false);show(cameraActions,true);show(resultActions,false);
+      setStatus('Kamera siap. Posisikan wajah dan tekan Ambil Foto.');
+    }catch(err){setStatus('Kamera belum bisa dibuka: '+(err.message||err)+'. Pastikan izin kamera diberikan.')}
+  }
+  function stopCamera(){if(stream){stream.getTracks().forEach(t=>t.stop());stream=null}video.srcObject=null}
+
+  function capturePhoto(){
+    if(!video.videoWidth){setStatus('Kamera belum siap. Coba beberapa detik lagi.');return}
+    const w=Math.min(video.videoWidth,1200), h=Math.round(w*video.videoHeight/video.videoWidth);
+    canvas.width=w;canvas.height=h+Math.round(w*.25);
+    const ctx=canvas.getContext('2d');
+    ctx.save();ctx.translate(w,0);ctx.scale(-1,1);ctx.drawImage(video,0,0,w,h);ctx.restore();
+    // Bingkai bawah silver/royal
+    ctx.fillStyle='#f7f9fc';ctx.fillRect(0,h,w,canvas.height-h);
+    ctx.strokeStyle='#a9b7c5';ctx.lineWidth=Math.max(2,w*.003);ctx.strokeRect(8,8,w-16,canvas.height-16);
+    ctx.strokeStyle='#a9b7c5';ctx.lineWidth=Math.max(1,w*.002);
+    ctx.beginPath();ctx.moveTo(w*.2,h+10);ctx.lineTo(w*.8,h+10);ctx.stroke();
+    ctx.textAlign='center';ctx.fillStyle='#34485d';
+    ctx.font=`${Math.round(w*.034)}px Georgia,serif`;ctx.fillText('THE WEDDING OF',w/2,h+Math.round(w*.055));
+    ctx.font=`${Math.round(w*.05)}px Georgia,serif`;ctx.fillText('DEWI  ✧  DIDI',w/2,h+Math.round(w*.105));
+    ctx.font=`${Math.round(w*.024)}px Arial,sans-serif`;ctx.fillStyle='#6c7f92';ctx.fillText('06 DESEMBER 2026',w/2,h+Math.round(w*.145));
+    // Ornamen sudut
+    ctx.strokeStyle='#71869a';ctx.lineWidth=Math.max(1.5,w*.002);
+    [[18,18,1,1],[w-18,18,-1,1],[18,canvas.height-18,1,-1],[w-18,canvas.height-18,-1,-1]].forEach(([x,y,sx,sy])=>{
+      ctx.save();ctx.translate(x,y);ctx.scale(sx,sy);ctx.beginPath();ctx.moveTo(0,22);ctx.quadraticCurveTo(0,0,22,0);ctx.lineTo(8,8);ctx.stroke();ctx.restore();
+    });
+    latestDataUrl=canvas.toDataURL('image/jpeg',.88);result.src=latestDataUrl;downloadBtn.href=latestDataUrl;
+    show(video,false);show(result,true);show(cameraActions,false);show(resultActions,true);stopCamera();
+    setStatus('Foto selesai! Mengirim ke Drive…');uploadAutomatically(latestDataUrl);
+  }
+  async function uploadAutomatically(dataUrl){
+    if(!UPLOAD_URL.startsWith('https://script.google.com/')){setStatus('Foto siap diunduh. Admin perlu mengisi URL Apps Script untuk penyimpanan otomatis.');return}
+    try{
+      await fetch(UPLOAD_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({key:UPLOAD_KEY,image:dataUrl})});
+      setStatus('Permintaan simpan dikirim. Unduh foto juga sebagai salinan pribadi.');
+    }catch(e){setStatus('Foto siap diunduh, tetapi pengiriman ke Drive mungkin gagal.')}
+  }
+  startBtn.addEventListener('click',startCamera);captureBtn.addEventListener('click',capturePhoto);
+  stopBtn.addEventListener('click',()=>{stopCamera();show(video,false);show(startActions,true);show(cameraActions,false);setStatus('Kamera ditutup.')});
+  retakeBtn.addEventListener('click',()=>{latestDataUrl='';startCamera()});
+  window.addEventListener('pagehide',stopCamera);
+</script>
+</body></html>
