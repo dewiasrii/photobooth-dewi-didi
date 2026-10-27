@@ -30,7 +30,6 @@ button:hover,.download:hover{transform:translateY(-1px)}.primary{background:line
 <div class="top-ornament" aria-hidden="true">✧</div>
 <h1>The Wedding Of<br>Dewi <span style="color:#83a5ca">&amp;</span> Didi</h1>
 <p class="date">06 DESEMBER 2026</p>
-<p class="intro">Abadikan momen bahagia bersama kami.<br>Siapkan senyum terbaikmu! ♡</p>
 <section class="panel">
 <video id="video" autoplay playsinline muted></video><canvas id="canvas" class="hidden"></canvas><img id="result" class="hidden" alt="Hasil foto photobooth Dewi dan Didi">
 <div class="actions" id="startActions"><button class="primary" id="startBtn">✧ Buka Kamera</button></div>
@@ -38,7 +37,7 @@ button:hover,.download:hover{transform:translateY(-1px)}.primary{background:line
 <div class="actions hidden" id="resultActions"><a id="downloadBtn" class="download primary" download="The-Wedding-Of-Dewi-Didi.jpg">↓ Unduh Foto</a><button class="secondary" id="retakeBtn">↻ Ambil Ulang</button></div>
 <p class="status" id="status" role="status">Tekan “Buka Kamera” lalu izinkan akses kamera.</p>
 <p class="small">Dengan mengambil foto, kamu menyetujui bahwa hasil foto akan dikirim ke Google Drive pasangan pengantin sebagai kenangan acara.</p>
-</section><p class="foot">DEWI ✧ DIDI · 06.12.2026</p></main>
+</section></main>
 <script>
 const UPLOAD_URL='https://script.google.com/macros/s/AKfycbw5jNsua3HsKkbxORw4XYgqxSMec45SfVRRmBdta3xs4x9-Y51jt8BpMPYsZqaxpFmR/exec';
 const UPLOAD_KEY='DewiDidi2026';
@@ -52,7 +51,7 @@ function stopCamera(){if(stream){stream.getTracks().forEach(t=>t.stop());stream=
 function line(ctx,x1,y1,x2,y2,color,width){ctx.strokeStyle=color;ctx.lineWidth=width;ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke()}
 function drawDiamond(ctx,x,y,r,color){ctx.fillStyle=color;ctx.beginPath();ctx.moveTo(x,y-r);ctx.lineTo(x+r*.7,y);ctx.lineTo(x,y+r);ctx.lineTo(x-r*.7,y);ctx.closePath();ctx.fill()}
 function drawDragon(ctx,x,y,scale,flip,color){ctx.save();ctx.translate(x,y);ctx.scale(scale*flip,scale);ctx.strokeStyle=color;ctx.fillStyle=color;ctx.lineWidth=2.1;ctx.lineCap='round';ctx.lineJoin='round';ctx.beginPath();ctx.moveTo(0,18);ctx.bezierCurveTo(-17,8,-20,-5,-10,-15);ctx.bezierCurveTo(-7,-19,-1,-17,0,-12);ctx.bezierCurveTo(6,-18,15,-13,12,-6);ctx.lineTo(5,-3);ctx.lineTo(10,2);ctx.lineTo(3,3);ctx.bezierCurveTo(9,11,7,18,0,21);ctx.stroke();ctx.beginPath();ctx.moveTo(-4,-8);ctx.quadraticCurveTo(-23,-28,-20,-4);ctx.quadraticCurveTo(-13,-7,-8,3);ctx.moveTo(5,-8);ctx.quadraticCurveTo(24,-27,21,-4);ctx.quadraticCurveTo(13,-7,8,3);ctx.stroke();ctx.beginPath();ctx.moveTo(-4,12);ctx.lineTo(-13,19);ctx.lineTo(-6,18);ctx.moveTo(4,12);ctx.lineTo(13,19);ctx.lineTo(6,18);ctx.stroke();ctx.restore()}
-function drawCorner(ctx,x,y,sx,sy,u,c1,c2){ctx.save();ctx.translate(x,y);ctx.scale(sx,sy);ctx.strokeStyle=c1;ctx.lineWidth=u*.003;ctx.beginPath();ctx.moveTo(0,60*u);ctx.bezierCurveTo(0,20*u,15*u,0,60*u,0);ctx.lineTo(35*u,12*u);ctx.quadraticCurveTo(22*u,18*u,16*u,35*u);ctx.lineTo(0,60*u);ctx.stroke();ctx.beginPath();ctx.moveTo(7*u,45*u);ctx.quadraticCurveTo(22*u,28*u,8*u,19*u);ctx.quadraticCurveTo(29*u,15*u,34*u,7*u);ctx.stroke();drawDiamond(ctx,8*u,8*u,4*u,c2);ctx.restore()}
+function drawCorner(ctx,x,y,sx,sy,u,c1,c2){ctx.save();ctx.translate(x,y);ctx.scale(sx,sy);ctx.strokeStyle=c1;ctx.lineWidth=1.6;ctx.beginPath();ctx.moveTo(0,60*u);ctx.bezierCurveTo(0,20*u,15*u,0,60*u,0);ctx.lineTo(35*u,12*u);ctx.quadraticCurveTo(22*u,18*u,16*u,35*u);ctx.lineTo(0,60*u);ctx.stroke();ctx.beginPath();ctx.moveTo(7*u,45*u);ctx.quadraticCurveTo(22*u,28*u,8*u,19*u);ctx.quadraticCurveTo(29*u,15*u,34*u,7*u);ctx.stroke();drawDiamond(ctx,8*u,8*u,4*u,c2);ctx.restore()}
 function capturePhoto(){if(!video.videoWidth){setStatus('Kamera belum siap. Coba beberapa detik lagi.');return}
 const w=Math.min(video.videoWidth,1200),photoH=Math.round(w*video.videoHeight/video.videoWidth),band=Math.round(w*.32),h=photoH+band;canvas.width=w;canvas.height=h;const ctx=canvas.getContext('2d');
 ctx.save();ctx.translate(w,0);ctx.scale(-1,1);ctx.drawImage(video,0,0,w,photoH);ctx.restore();
@@ -61,9 +60,9 @@ const g=ctx.createLinearGradient(0,photoH,w,h);g.addColorStop(0,'#fafdff');g.add
 // double perimeter lines
 ctx.strokeStyle='#6e91b8';ctx.lineWidth=Math.max(2,w*.003);ctx.strokeRect(w*.018,w*.012,w*.964,h-w*.024);ctx.strokeStyle='#c0d3e7';ctx.lineWidth=Math.max(1,w*.0017);ctx.strokeRect(w*.028,w*.022,w*.944,h-w*.044);
 // ornate corners at photo and plaque corners
-const c1='#7798bd',c2='#a8c4e2';drawCorner(ctx,w*.025,photoH*.025,1,1,w*.62,c1,c2);drawCorner(ctx,w*.975,photoH*.025,-1,1,w*.62,c1,c2);drawCorner(ctx,w*.025,h*.975,1,-1,w*.62,c1,c2);drawCorner(ctx,w*.975,h*.975,-1,-1,w*.62,c1,c2);
+const c1='#7798bd',c2='#a8c4e2';drawCorner(ctx,w*.025,photoH*.035,1,1,.72,c1,c2);drawCorner(ctx,w*.975,photoH*.035,-1,1,.72,c1,c2);drawCorner(ctx,w*.025,h*.975,1,-1,.72,c1,c2);drawCorner(ctx,w*.975,h*.975,-1,-1,.72,c1,c2);
 // upper fantasy crest with mirrored dragons
-const unit=w*.001;drawDragon(ctx,w*.39,photoH*.045,unit*40,1,'#7899bd');drawDragon(ctx,w*.61,photoH*.045,unit*40,-1,'#7899bd');
+const unit=w*.001;drawDragon(ctx,w*.39,photoH*.055,.62,1,'#7899bd');drawDragon(ctx,w*.61,photoH*.055,.62,-1,'#7899bd');
 // side heraldic banners in slim blue silver panels
 ctx.fillStyle='#b8cfe8';ctx.strokeStyle='#7798bd';ctx.lineWidth=Math.max(1,w*.0015);[[w*.055,photoH*.28,1],[w*.945,photoH*.28,-1]].forEach(([x,y,flip])=>{ctx.save();ctx.translate(x,y);ctx.scale(flip,1);ctx.beginPath();ctx.moveTo(0,0);ctx.lineTo(w*.035,0);ctx.lineTo(w*.035,photoH*.18);ctx.lineTo(w*.018,photoH*.205);ctx.lineTo(0,photoH*.18);ctx.closePath();ctx.fill();ctx.stroke();drawDragon(ctx,w*.017,photoH*.08,w*.00055,1,'#587da5');ctx.restore()});
 // bottom name plaque and flourish
@@ -72,6 +71,6 @@ line(ctx,w*.18,photoH+band*.20,w*.42,photoH+band*.20,'#91accb',Math.max(1,w*.001
 ctx.textAlign='center';ctx.fillStyle='#426487';ctx.font=`${Math.round(w*.032)}px Georgia,serif`;ctx.fillText('The Wedding Of',w/2,photoH+band*.39);ctx.fillStyle='#294867';ctx.font=`${Math.round(w*.061)}px Georgia,serif`;ctx.fillText('DEWI  ✧  DIDI',w/2,photoH+band*.61);ctx.fillStyle='#617f9f';ctx.font=`${Math.round(w*.024)}px Arial,sans-serif`;ctx.fillText('06 DESEMBER 2026',w/2,photoH+band*.76);
 line(ctx,w*.36,photoH+band*.84,w*.46,photoH+band*.84,'#a1b9d4',Math.max(1,w*.0013));line(ctx,w*.54,photoH+band*.84,w*.64,photoH+band*.84,'#a1b9d4',Math.max(1,w*.0013));drawDiamond(ctx,w*.5,photoH+band*.84,w*.009,'#7798bd');
 latestDataUrl=canvas.toDataURL('image/jpeg',.9);result.src=latestDataUrl;downloadBtn.href=latestDataUrl;show(video,false);show(result,true);show(cameraActions,false);show(resultActions,true);stopCamera();setStatus('Foto selesai! Mengirim ke Drive…');uploadAutomatically(latestDataUrl)}
-async function uploadAutomatically(dataUrl){if(UPLOAD_KEY==='GANTI_DENGAN_KUNCI_ACAK_PANJANG'){setStatus('Foto siap diunduh. Admin perlu memasukkan kunci unggah yang benar agar tersimpan ke Drive.');return}try{await fetch(UPLOAD_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({key:UPLOAD_KEY,image:dataUrl})});setStatus('Permintaan simpan dikirim. Silakan unduh foto juga sebagai salinan pribadi.')}catch(e){setStatus('Foto siap diunduh, tetapi pengiriman ke Drive mungkin gagal.')}}
+async function uploadAutomatically(dataUrl){if(UPLOAD_KEY==='DewiDidi2026'){setStatus('Foto siap diunduh. Admin perlu memasukkan kunci unggah yang benar agar tersimpan ke Drive.');return}try{await fetch(UPLOAD_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({key:UPLOAD_KEY,image:dataUrl})});setStatus('Permintaan simpan dikirim. Silakan unduh foto juga sebagai salinan pribadi.')}catch(e){setStatus('Foto siap diunduh, tetapi pengiriman ke Drive mungkin gagal.')}}
 startBtn.addEventListener('click',startCamera);captureBtn.addEventListener('click',capturePhoto);stopBtn.addEventListener('click',()=>{stopCamera();show(video,false);show(startActions,true);show(cameraActions,false);setStatus('Kamera ditutup.')});retakeBtn.addEventListener('click',()=>{latestDataUrl='';startCamera()});window.addEventListener('pagehide',stopCamera);
 </script></body></html>
