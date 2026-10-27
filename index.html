@@ -52,25 +52,53 @@ function line(ctx,x1,y1,x2,y2,color,width){ctx.strokeStyle=color;ctx.lineWidth=w
 function drawDiamond(ctx,x,y,r,color){ctx.fillStyle=color;ctx.beginPath();ctx.moveTo(x,y-r);ctx.lineTo(x+r*.7,y);ctx.lineTo(x,y+r);ctx.lineTo(x-r*.7,y);ctx.closePath();ctx.fill()}
 function drawDragon(ctx,x,y,scale,flip,color){ctx.save();ctx.translate(x,y);ctx.scale(scale*flip,scale);ctx.strokeStyle=color;ctx.fillStyle=color;ctx.lineWidth=2.1;ctx.lineCap='round';ctx.lineJoin='round';ctx.beginPath();ctx.moveTo(0,18);ctx.bezierCurveTo(-17,8,-20,-5,-10,-15);ctx.bezierCurveTo(-7,-19,-1,-17,0,-12);ctx.bezierCurveTo(6,-18,15,-13,12,-6);ctx.lineTo(5,-3);ctx.lineTo(10,2);ctx.lineTo(3,3);ctx.bezierCurveTo(9,11,7,18,0,21);ctx.stroke();ctx.beginPath();ctx.moveTo(-4,-8);ctx.quadraticCurveTo(-23,-28,-20,-4);ctx.quadraticCurveTo(-13,-7,-8,3);ctx.moveTo(5,-8);ctx.quadraticCurveTo(24,-27,21,-4);ctx.quadraticCurveTo(13,-7,8,3);ctx.stroke();ctx.beginPath();ctx.moveTo(-4,12);ctx.lineTo(-13,19);ctx.lineTo(-6,18);ctx.moveTo(4,12);ctx.lineTo(13,19);ctx.lineTo(6,18);ctx.stroke();ctx.restore()}
 function drawCorner(ctx,x,y,sx,sy,u,c1,c2){ctx.save();ctx.translate(x,y);ctx.scale(sx,sy);ctx.strokeStyle=c1;ctx.lineWidth=1.6;ctx.beginPath();ctx.moveTo(0,60*u);ctx.bezierCurveTo(0,20*u,15*u,0,60*u,0);ctx.lineTo(35*u,12*u);ctx.quadraticCurveTo(22*u,18*u,16*u,35*u);ctx.lineTo(0,60*u);ctx.stroke();ctx.beginPath();ctx.moveTo(7*u,45*u);ctx.quadraticCurveTo(22*u,28*u,8*u,19*u);ctx.quadraticCurveTo(29*u,15*u,34*u,7*u);ctx.stroke();drawDiamond(ctx,8*u,8*u,4*u,c2);ctx.restore()}
-function capturePhoto(){if(!video.videoWidth){setStatus('Kamera belum siap. Coba beberapa detik lagi.');return}
-const w=Math.min(video.videoWidth,1200),photoH=Math.round(w*video.videoHeight/video.videoWidth),band=Math.round(w*.32),h=photoH+band;canvas.width=w;canvas.height=h;const ctx=canvas.getContext('2d');
-ctx.save();ctx.translate(w,0);ctx.scale(-1,1);ctx.drawImage(video,0,0,w,photoH);ctx.restore();
-// Panel bawah icy blue, silver double frame, and fantasy heraldic details.
-const g=ctx.createLinearGradient(0,photoH,w,h);g.addColorStop(0,'#fafdff');g.addColorStop(.45,'#dceafa');g.addColorStop(1,'#fafdff');ctx.fillStyle=g;ctx.fillRect(0,photoH,w,band);
-// double perimeter lines
-ctx.strokeStyle='#6e91b8';ctx.lineWidth=Math.max(2,w*.003);ctx.strokeRect(w*.018,w*.012,w*.964,h-w*.024);ctx.strokeStyle='#c0d3e7';ctx.lineWidth=Math.max(1,w*.0017);ctx.strokeRect(w*.028,w*.022,w*.944,h-w*.044);
-// ornate corners at photo and plaque corners
-const c1='#7798bd',c2='#a8c4e2';drawCorner(ctx,w*.025,photoH*.035,1,1,.72,c1,c2);drawCorner(ctx,w*.975,photoH*.035,-1,1,.72,c1,c2);drawCorner(ctx,w*.025,h*.975,1,-1,.72,c1,c2);drawCorner(ctx,w*.975,h*.975,-1,-1,.72,c1,c2);
-// upper fantasy crest with mirrored dragons
-const unit=w*.001;drawDragon(ctx,w*.39,photoH*.055,.62,1,'#7899bd');drawDragon(ctx,w*.61,photoH*.055,.62,-1,'#7899bd');
-// side heraldic banners in slim blue silver panels
-ctx.fillStyle='#b8cfe8';ctx.strokeStyle='#7798bd';ctx.lineWidth=Math.max(1,w*.0015);[[w*.055,photoH*.28,1],[w*.945,photoH*.28,-1]].forEach(([x,y,flip])=>{ctx.save();ctx.translate(x,y);ctx.scale(flip,1);ctx.beginPath();ctx.moveTo(0,0);ctx.lineTo(w*.035,0);ctx.lineTo(w*.035,photoH*.18);ctx.lineTo(w*.018,photoH*.205);ctx.lineTo(0,photoH*.18);ctx.closePath();ctx.fill();ctx.stroke();drawDragon(ctx,w*.017,photoH*.08,w*.00055,1,'#587da5');ctx.restore()});
-// bottom name plaque and flourish
-const top=photoH+band*.08;ctx.fillStyle='rgba(255,255,255,.62)';ctx.strokeStyle='#a8bfd9';ctx.lineWidth=Math.max(1,w*.0018);ctx.beginPath();ctx.moveTo(w*.12,top+band*.05);ctx.lineTo(w*.88,top+band*.05);ctx.lineTo(w*.91,top+band*.15);ctx.lineTo(w*.91,top+band*.88);ctx.lineTo(w*.09,top+band*.88);ctx.lineTo(w*.09,top+band*.15);ctx.closePath();ctx.fill();ctx.stroke();
-line(ctx,w*.18,photoH+band*.20,w*.42,photoH+band*.20,'#91accb',Math.max(1,w*.0015));line(ctx,w*.58,photoH+band*.20,w*.82,photoH+band*.20,'#91accb',Math.max(1,w*.0015));drawDiamond(ctx,w*.5,photoH+band*.20,w*.014,'#7395ba');
-ctx.textAlign='center';ctx.fillStyle='#426487';ctx.font=`${Math.round(w*.032)}px Georgia,serif`;ctx.fillText('The Wedding Of',w/2,photoH+band*.39);ctx.fillStyle='#294867';ctx.font=`${Math.round(w*.061)}px Georgia,serif`;ctx.fillText('DEWI  ✧  DIDI',w/2,photoH+band*.61);ctx.fillStyle='#617f9f';ctx.font=`${Math.round(w*.024)}px Arial,sans-serif`;ctx.fillText('06 DESEMBER 2026',w/2,photoH+band*.76);
-line(ctx,w*.36,photoH+band*.84,w*.46,photoH+band*.84,'#a1b9d4',Math.max(1,w*.0013));line(ctx,w*.54,photoH+band*.84,w*.64,photoH+band*.84,'#a1b9d4',Math.max(1,w*.0013));drawDiamond(ctx,w*.5,photoH+band*.84,w*.009,'#7798bd');
-latestDataUrl=canvas.toDataURL('image/jpeg',.9);result.src=latestDataUrl;downloadBtn.href=latestDataUrl;show(video,false);show(result,true);show(cameraActions,false);show(resultActions,true);stopCamera();setStatus('Foto selesai! Mengirim ke Drive…');uploadAutomatically(latestDataUrl)}
+function capturePhoto(){
+if(!video.videoWidth){setStatus('Kamera belum siap. Coba beberapa detik lagi.');return}
+const w=1200, outer=34, photoX=outer+24, photoY=outer+28, photoW=w-2*(outer+24), photoH=Math.round(photoW*1.18), band=Math.round(w*.30), h=photoY+photoH+band+outer;
+canvas.width=w;canvas.height=h;const ctx=canvas.getContext('2d');
+// Soft icy paper background
+const bg=ctx.createLinearGradient(0,0,w,h);bg.addColorStop(0,'#fafdff');bg.addColorStop(.5,'#e8f2fc');bg.addColorStop(1,'#f8fbff');ctx.fillStyle=bg;ctx.fillRect(0,0,w,h);
+// Subtle outer silver-blue frame
+ctx.lineJoin='round';ctx.strokeStyle='#7799bf';ctx.lineWidth=5;ctx.strokeRect(outer,outer,w-2*outer,h-2*outer);
+ctx.strokeStyle='#c3d6e9';ctx.lineWidth=3;ctx.strokeRect(outer+12,outer+12,w-2*(outer+12),h-2*(outer+12));
+ctx.strokeStyle='#ffffff';ctx.lineWidth=2;ctx.strokeRect(outer+20,outer+20,w-2*(outer+20),h-2*(outer+20));
+// Photo well with white mat and blue hairline
+ctx.fillStyle='#fff';ctx.fillRect(photoX-8,photoY-8,photoW+16,photoH+16);
+ctx.strokeStyle='#9cb8d8';ctx.lineWidth=3;ctx.strokeRect(photoX-8,photoY-8,photoW+16,photoH+16);
+// Crop camera image to fit photo well, preserving center and keeping all ornaments outside the photo
+const sw=video.videoWidth, sh=video.videoHeight, targetRatio=photoW/photoH, sourceRatio=sw/sh;
+let sx=0,sy=0,sw2=sw,sh2=sh;
+if(sourceRatio>targetRatio){sw2=sh*targetRatio;sx=(sw-sw2)/2}else{sh2=sw/targetRatio;sy=(sh-sh2)/2}
+ctx.save();ctx.translate(photoX+photoW,photoY);ctx.scale(-1,1);ctx.drawImage(video,sx,sy,sw2,sh2,0,0,photoW,photoH);ctx.restore();
+// Elegant corner scrollwork drawn in the outer mat, never across the photo
+function flourish(x,y,fx,fy){
+ ctx.save();ctx.translate(x,y);ctx.scale(fx,fy);ctx.strokeStyle='#7296bd';ctx.lineWidth=3;ctx.lineCap='round';
+ ctx.beginPath();ctx.moveTo(0,72);ctx.bezierCurveTo(0,28,22,0,72,0);ctx.bezierCurveTo(50,4,42,20,51,28);ctx.bezierCurveTo(60,36,75,24,68,15);ctx.bezierCurveTo(59,7,48,16,55,23);ctx.stroke();
+ ctx.beginPath();ctx.moveTo(10,58);ctx.bezierCurveTo(22,45,20,34,11,28);ctx.bezierCurveTo(31,30,39,17,39,10);ctx.stroke();
+ ctx.fillStyle='#9dbde0';ctx.beginPath();ctx.moveTo(18,8);ctx.lineTo(25,18);ctx.lineTo(18,28);ctx.lineTo(11,18);ctx.closePath();ctx.fill();
+ ctx.restore();
+}
+flourish(outer+19,outer+19,1,1);flourish(w-outer-19,outer+19,-1,1);
+flourish(outer+19,photoY+photoH+band-5,1,-1);flourish(w-outer-19,photoY+photoH+band-5,-1,-1);
+// Fine rails along the side edges and a restrained center crest above the plaque
+ctx.strokeStyle='#b3cbe3';ctx.lineWidth=2;
+ctx.beginPath();ctx.moveTo(outer+16,photoY+photoH+18);ctx.lineTo(outer+16,h-outer-20);ctx.moveTo(w-outer-16,photoY+photoH+18);ctx.lineTo(w-outer-16,h-outer-20);ctx.stroke();
+// Name plaque
+const plaqueY=photoY+photoH+28, plaqueH=band-34, plaqueX=outer+50, plaqueW=w-2*(outer+50);
+const pg=ctx.createLinearGradient(plaqueX,plaqueY,plaqueX+plaqueW,plaqueY+plaqueH);pg.addColorStop(0,'#f9fcff');pg.addColorStop(.5,'#e5effa');pg.addColorStop(1,'#f9fcff');
+ctx.fillStyle=pg;ctx.strokeStyle='#9eb9d7';ctx.lineWidth=3;
+ctx.beginPath();ctx.moveTo(plaqueX+28,plaqueY);ctx.lineTo(plaqueX+plaqueW-28,plaqueY);ctx.lineTo(plaqueX+plaqueW,plaqueY+24);ctx.lineTo(plaqueX+plaqueW,plaqueY+plaqueH-24);ctx.lineTo(plaqueX+plaqueW-28,plaqueY+plaqueH);ctx.lineTo(plaqueX+28,plaqueY+plaqueH);ctx.lineTo(plaqueX,plaqueY+plaqueH-24);ctx.lineTo(plaqueX,plaqueY+24);ctx.closePath();ctx.fill();ctx.stroke();
+// Restrained ornamental divider
+line(ctx,w*.25,plaqueY+plaqueH*.22,w*.43,plaqueY+plaqueH*.22,'#9ab6d6',2);
+line(ctx,w*.57,plaqueY+plaqueH*.22,w*.75,plaqueY+plaqueH*.22,'#9ab6d6',2);
+drawDiamond(ctx,w/2,plaqueY+plaqueH*.22,13,'#7296bd');
+ctx.textAlign='center';ctx.textBaseline='middle';
+ctx.fillStyle='#456789';ctx.font='36px Georgia,serif';ctx.fillText('The Wedding Of',w/2,plaqueY+plaqueH*.42);
+ctx.fillStyle='#294867';ctx.font='bold 68px Georgia,serif';ctx.fillText('DEWI  ✧  DIDI',w/2,plaqueY+plaqueH*.63);
+ctx.fillStyle='#607f9f';ctx.font='29px Arial,sans-serif';ctx.fillText('06 DESEMBER 2026',w/2,plaqueY+plaqueH*.82);
+// Tiny silver studs on frame corners
+ctx.fillStyle='#fff';[[outer+10,outer+10],[w-outer-10,outer+10],[outer+10,h-outer-10],[w-outer-10,h-outer-10]].forEach(([x,y])=>{ctx.beginPath();ctx.arc(x,y,5,0,Math.PI*2);ctx.fill()});
+latestDataUrl=canvas.toDataURL('image/jpeg',.92);result.src=latestDataUrl;downloadBtn.href=latestDataUrl;show(video,false);show(result,true);show(cameraActions,false);show(resultActions,true);stopCamera();setStatus('Foto selesai! Mengirim ke Drive…');uploadAutomatically(latestDataUrl)}
 async function uploadAutomatically(dataUrl){if(UPLOAD_KEY==='DewiDidi2026'){setStatus('Foto siap diunduh. Admin perlu memasukkan kunci unggah yang benar agar tersimpan ke Drive.');return}try{await fetch(UPLOAD_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({key:UPLOAD_KEY,image:dataUrl})});setStatus('Permintaan simpan dikirim. Silakan unduh foto juga sebagai salinan pribadi.')}catch(e){setStatus('Foto siap diunduh, tetapi pengiriman ke Drive mungkin gagal.')}}
 startBtn.addEventListener('click',startCamera);captureBtn.addEventListener('click',capturePhoto);stopBtn.addEventListener('click',()=>{stopCamera();show(video,false);show(startActions,true);show(cameraActions,false);setStatus('Kamera ditutup.')});retakeBtn.addEventListener('click',()=>{latestDataUrl='';startCamera()});window.addEventListener('pagehide',stopCamera);
 </script></body></html>
