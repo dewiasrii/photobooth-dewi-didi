@@ -49,15 +49,22 @@ body.landing-open{display:flex;align-items:center;justify-content:center;padding
 #landing h1{font-size:clamp(30px,6vw,48px);margin:0 0 10px}
 .landing-subtitle{font:600 11px Arial,sans-serif;letter-spacing:3px;color:#6689ad}
 .landing-message{font-size:15px;line-height:1.65;margin:20px auto 24px;max-width:520px}
-.howto{margin:0 auto 25px;max-width:540px;text-align:left;padding:19px 21px;border:1px solid #d1e0ee;border-radius:16px;background:#ffffffb8}
-.howto h2{margin:0 0 13px;text-align:center;font-size:20px;font-weight:400}
-.howto ol{margin:0;padding-left:23px}
-.howto li{padding:5px 0 7px 5px;font:13px/1.55 Arial,sans-serif;color:#45698b}
-.howto li strong{color:#294e73}
+.howto{margin:0 auto 27px;max-width:590px;text-align:left;padding:23px;border:1px solid #c9dced;border-radius:20px;background:linear-gradient(145deg,#ffffffed,#f5f9fe);box-shadow:0 9px 24px #345b8010}
+.guide-heading{text-align:center;margin-bottom:19px}
+.guide-kicker{font:700 9px Arial,sans-serif;letter-spacing:2.5px;color:#8aa8c6}
+.howto h2{margin:6px 0 5px;text-align:center;font-size:23px;font-weight:400;color:#294e73}
+.guide-heading p{margin:0;color:#7894b0;font:12px/1.5 Arial,sans-serif}
+.guide-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.guide-step{display:flex;align-items:flex-start;gap:11px;min-height:105px;padding:14px 12px;border:1px solid #dce8f3;border-radius:14px;background:#ffffffd9;box-shadow:0 3px 10px #345b8008}
+.guide-step-last{grid-column:1/-1;min-height:82px}
+.guide-icon{flex:0 0 38px;width:38px;height:38px;display:grid;place-items:center;border-radius:13px;background:linear-gradient(145deg,#edf5fd,#dceafa);border:1px solid #d0e1f0;color:#527da5;font-size:19px}
+.guide-step strong{display:block;margin:2px 0 4px;color:#294e73;font:700 13px Arial,sans-serif}
+.guide-step p{margin:0;color:#6885a4;font:11px/1.5 Arial,sans-serif}
+.step-no{display:block;margin-bottom:5px;color:#91abc4;font:700 8px Arial,sans-serif;letter-spacing:1.2px}
 #startBtn{padding:13px 25px;font-size:14px}
 #boothPage{display:none}
 #boothPage.active{display:block}
-@media(max-width:600px){body.landing-open{padding:14px 10px}.landing-card{border-radius:19px}.howto{padding:16px}.howto li{font-size:12px}}
+@media(max-width:600px){body.landing-open{padding:14px 10px}.landing-card{border-radius:19px}.howto{padding:16px}.guide-grid{grid-template-columns:1fr;gap:8px}.guide-step,.guide-step-last{grid-column:auto;min-height:0;padding:12px}.guide-icon{width:36px;height:36px;flex-basis:36px}.guide-step p{font-size:11px}}
 
 </style>
 </head>
@@ -70,14 +77,18 @@ body.landing-open{display:flex;align-items:center;justify-content:center;padding
     <div class="landing-subtitle">06 DESEMBER 2026</div>
     <p class="landing-message">Abadikan momen bahagia dan bawa pulang kenangan manis dari hari istimewa kami.</p>
     <div class="howto">
-      <h2>Tata Cara Foto</h2>
-      <ol>
-        <li><strong>Izinkan akses kamera.</strong> Pilih “Izinkan” saat browser meminta izin kamera.</li>
-        <li><strong>Atur kamera.</strong> Pilih kamera depan atau belakang, lalu sesuaikan zoom jika tersedia.</li>
-        <li><strong>Atur posisi.</strong> Berdiri di tempat yang cukup terang dan posisikan wajah di area foto.</li>
-        <li><strong>Ambil foto.</strong> Tekan tombol “Ambil Foto” saat sudah siap.</li>
-        <li><strong>Simpan kenangan.</strong> Tekan “Unduh Foto” untuk menyimpan hasilnya ke perangkatmu.</li>
-      </ol>
+      <div class="guide-heading">
+        <span class="guide-kicker">A LITTLE GUIDE FOR YOU</span>
+        <h2>Let’s Make a Memory</h2>
+        <p>Lima langkah mudah untuk mengabadikan momenmu</p>
+      </div>
+      <div class="guide-grid">
+        <div class="guide-step"><span class="guide-icon" aria-hidden="true">📷</span><div><span class="step-no">01 · PERMISSION</span><strong>Izinkan kamera</strong><p>Pilih “Izinkan” saat browser meminta akses kamera.</p></div></div>
+        <div class="guide-step"><span class="guide-icon" aria-hidden="true">🔄</span><div><span class="step-no">02 · CAMERA</span><strong>Pilih kamera</strong><p>Gunakan kamera depan atau belakang, lalu atur zoom.</p></div></div>
+        <div class="guide-step"><span class="guide-icon" aria-hidden="true">✨</span><div><span class="step-no">03 · YOUR POSE</span><strong>Atur posisimu</strong><p>Cari tempat terang, lalu posisikan wajah di area foto.</p></div></div>
+        <div class="guide-step"><span class="guide-icon" aria-hidden="true">♡</span><div><span class="step-no">04 · CHEESE!</span><strong>Ambil foto</strong><p>Siapkan senyum terbaik dan tekan tombol “Ambil Foto”.</p></div></div>
+        <div class="guide-step guide-step-last"><span class="guide-icon" aria-hidden="true">↓</span><div><span class="step-no">05 · KEEP IT</span><strong>Simpan kenangan</strong><p>Tekan “Unduh Foto” untuk menyimpan hasilnya ke perangkatmu.</p></div></div>
+      </div>
     </div>
     <button id="startBtn" class="primary">Mulai Photobooth ♡</button>
   </div>
