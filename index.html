@@ -20,7 +20,7 @@ h1{font-weight:400;font-size:clamp(29px,6vw,43px);line-height:1.08;margin:0 0 9p
 #camera{object-fit:cover;object-position:center 58%;background:#dfeaf5}
 #camera.selfie{transform:scaleX(-1)}
 #camera.rear{transform:none}
-#camera.zoom-half{object-fit:contain;transform:none}
+#camera.zoom-half{object-fit:cover}
 #camera.zoom-half.selfie{transform:scaleX(-1)}
 #camera.zoom-two.selfie{transform:scaleX(-1) scale(2)}
 #camera.zoom-two.rear{transform:scale(2)}
@@ -92,8 +92,8 @@ async function startCamera(facing=currentFacing){
   video.srcObject=stream;
   video.classList.toggle('selfie',currentFacing==='user');
   video.classList.toggle('rear',currentFacing==='environment');
-  applyZoom();
   await video.play();
+  await applyZoom();
   const track=stream.getVideoTracks()[0];
   if(track&&track.getCapabilities){
    const caps=track.getCapabilities();
@@ -110,28 +110,36 @@ async function startCamera(facing=currentFacing){
   switchBtn.disabled=false;
  }
 }
-function applyZoom(){
+async function applyZoom(){
  video.classList.toggle('zoom-half',currentZoom===0.5);
  video.classList.toggle('zoom-two',currentZoom===2);
  zoomButtons.forEach(btn=>btn.classList.toggle('active',Number(btn.dataset.zoom)===currentZoom));
+
+ const track=stream?.getVideoTracks?.()[0];
+ const caps=track?.getCapabilities?.();
+ // 0.5x is only genuine when the phone camera exposes an ultra-wide zoom range.
+ if(currentZoom===0.5){
+  if(caps?.zoom && caps.zoom.min<=0.5 && caps.zoom.max>=0.5){
+   try{await track.applyConstraints({advanced:[{zoom:0.5} ]});setStatus('Zoom ultra-wide 0,5× aktif.')}
+   catch(e){currentZoom=1;setStatus('Kamera tidak menerima zoom 0,5×. Kembali ke 1×.');}
+  }else{
+   currentZoom=1;
+   zoomButtons.forEach(btn=>btn.classList.toggle('active',Number(btn.dataset.zoom)===1));
+   video.classList.remove('zoom-half');
+   setStatus('Kamera depan/perangkat ini tidak mendukung ultra-wide 0,5×. Dipakai 1× agar bingkai tetap pas.');
+  }
+ }else if(caps?.zoom){
+  const requested=currentZoom===2?Math.min(2,caps.zoom.max):Math.max(1,caps.zoom.min);
+  try{await track.applyConstraints({advanced:[{zoom:requested}]});}catch(e){}
+  setStatus('Zoom '+(currentZoom===2?'2×':'1×')+' aktif.');
+ }else{
+  setStatus('Zoom '+(currentZoom===2?'2×':'1×')+' aktif.');
+ }
 }
 function drawCover(source,W,H,mirror=false){
  const sw=source.videoWidth||source.naturalWidth,sh=source.videoHeight||source.naturalHeight;
  if(!sw||!sh)throw Error('Kamera belum siap');
- let cropW,cropH;
- if(currentZoom===0.5){
-  // 0.5x shows the full camera sensor image; empty margins are filled with the frame background.
-  const scale=Math.min(W/sw,H/sh);
-  cropW=sw;cropH=sh;
-  const dw=sw*scale,dh=sh*scale,dx=(W-dw)/2,dy=(H-dh)/2;
-  ctx.save();
-  if(mirror){ctx.translate(W,0);ctx.scale(-1,1);ctx.drawImage(source,0,0,sw,sh,dx,dy,dw,dh)}
-  else ctx.drawImage(source,0,0,sw,sh,dx,dy,dw,dh);
-  ctx.restore();
-  return;
- }
- const scale=Math.max(W/sw,H/sh)*currentZoom;
- cropW=W/scale;cropH=H/scale;
+ const scale=Math.max(W/sw,H/sh),cropW=W/scale,cropH=H/scale;
  const sx=(sw-cropW)/2,sy=Math.max(0,Math.min(sh-cropH,(sh-cropH)*0.58));
  ctx.save();
  if(mirror){ctx.translate(W,0);ctx.scale(-1,1);ctx.drawImage(source,sx,sy,cropW,cropH,0,0,W,H)}
@@ -152,10 +160,9 @@ async function uploadAutomatically(dataUrl){
   setStatus('Permintaan unggah dikirim. Periksa folder Drive untuk memastikan foto tersimpan.');
  }catch(e){setStatus('Pengiriman ke Drive gagal. Unduh foto sebagai cadangan.')}
 }
-zoomButtons.forEach(btn=>btn.addEventListener('click',()=>{
+zoomButtons.forEach(btn=>btn.addEventListener('click',async()=>{
  currentZoom=Number(btn.dataset.zoom);
- applyZoom();
- setStatus('Zoom kamera diatur ke '+btn.textContent+'.');
+ await applyZoom();
 }));
 switchBtn.addEventListener('click',async()=>{
  if(switchingCamera)return;
