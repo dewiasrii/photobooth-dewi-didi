@@ -20,9 +20,16 @@ h1{font-weight:400;font-size:clamp(29px,6vw,43px);line-height:1.08;margin:0 0 9p
 #camera{object-fit:cover;object-position:center 58%;background:#dfeaf5}
 #camera.selfie{transform:scaleX(-1)}
 #camera.rear{transform:none}
+#camera.zoom-half{object-fit:contain;transform:none}
+#camera.zoom-half.selfie{transform:scaleX(-1)}
+#camera.zoom-two.selfie{transform:scaleX(-1) scale(2)}
+#camera.zoom-two.rear{transform:scale(2)}
 #result{display:none;object-fit:fill}
 #frame{position:absolute;inset:0;width:100%;height:100%;object-fit:fill;pointer-events:none}
-.controls{display:flex;justify-content:center;gap:9px;flex-wrap:wrap;margin:14px 0 7px}
+.controls{display:flex;justify-content:center;align-items:center;gap:9px;flex-wrap:wrap;margin:14px 0 7px}
+.zoom-controls{display:flex;align-items:center;justify-content:center;gap:5px;padding:4px 7px;border:1px solid #c5d8e9;border-radius:999px;background:#f5f9fe;color:#52789e;font:600 12px Arial,sans-serif}
+.zoom-btn{padding:7px 10px;border:0;background:transparent;color:#345b80;box-shadow:none}
+.zoom-btn.active{background:#3b6e9b;color:white}
 button{border:1px solid #b5cce3;border-radius:999px;padding:12px 17px;font:600 13px Arial,sans-serif;cursor:pointer}
 .primary{background:linear-gradient(135deg,#2e5c86,#5e8db9);color:white;box-shadow:0 5px 14px #24496d25}
 .secondary{background:#f5f9fe;color:#345b80}
@@ -48,6 +55,12 @@ button:disabled{opacity:.5;cursor:not-allowed}
 </div>
 <div class="controls">
 <button id="switchBtn" class="secondary">🔄 Kamera Belakang</button>
+<div class="zoom-controls" aria-label="Pengaturan zoom kamera">
+  <span>Zoom</span>
+  <button type="button" class="zoom-btn" data-zoom="0.5">0,5×</button>
+  <button type="button" class="zoom-btn active" data-zoom="1">1×</button>
+  <button type="button" class="zoom-btn" data-zoom="2">2×</button>
+</div>
 <button id="captureBtn" class="primary">📷 Ambil Foto</button>
 <button id="retakeBtn" class="secondary hidden">↻ Ambil Ulang</button>
 <button id="downloadBtn" class="primary hidden">↓ Unduh Foto</button>
@@ -62,7 +75,8 @@ const UPLOAD_KEY='DewiDidi2026';
 const FRAME_W=1397,FRAME_H=1126;
 const video=document.getElementById('camera'),canvas=document.getElementById('result'),ctx=canvas.getContext('2d');
 const frame=document.getElementById('frame'),captureBtn=document.getElementById('captureBtn'),retakeBtn=document.getElementById('retakeBtn'),downloadBtn=document.getElementById('downloadBtn'),switchBtn=document.getElementById('switchBtn'),statusEl=document.getElementById('status');
-let latestDataUrl='',stream=null,currentFacing='user',switchingCamera=false;
+let latestDataUrl='',stream=null,currentFacing='user',switchingCamera=false,currentZoom=1;
+const zoomButtons=[...document.querySelectorAll('.zoom-btn')];
 function setStatus(s){statusEl.textContent=s}
 async function startCamera(facing=currentFacing){
  switchingCamera=true;
@@ -78,6 +92,7 @@ async function startCamera(facing=currentFacing){
   video.srcObject=stream;
   video.classList.toggle('selfie',currentFacing==='user');
   video.classList.toggle('rear',currentFacing==='environment');
+  applyZoom();
   await video.play();
   const track=stream.getVideoTracks()[0];
   if(track&&track.getCapabilities){
@@ -95,11 +110,28 @@ async function startCamera(facing=currentFacing){
   switchBtn.disabled=false;
  }
 }
+function applyZoom(){
+ video.classList.toggle('zoom-half',currentZoom===0.5);
+ video.classList.toggle('zoom-two',currentZoom===2);
+ zoomButtons.forEach(btn=>btn.classList.toggle('active',Number(btn.dataset.zoom)===currentZoom));
+}
 function drawCover(source,W,H,mirror=false){
  const sw=source.videoWidth||source.naturalWidth,sh=source.videoHeight||source.naturalHeight;
  if(!sw||!sh)throw Error('Kamera belum siap');
- const scale=Math.max(W/sw,H/sh),cropW=W/scale,cropH=H/scale;
- // Crop toward the lower portion of the source so the face sits higher in the frame.
+ let cropW,cropH;
+ if(currentZoom===0.5){
+  // 0.5x shows the full camera sensor image; empty margins are filled with the frame background.
+  const scale=Math.min(W/sw,H/sh);
+  cropW=sw;cropH=sh;
+  const dw=sw*scale,dh=sh*scale,dx=(W-dw)/2,dy=(H-dh)/2;
+  ctx.save();
+  if(mirror){ctx.translate(W,0);ctx.scale(-1,1);ctx.drawImage(source,0,0,sw,sh,dx,dy,dw,dh)}
+  else ctx.drawImage(source,0,0,sw,sh,dx,dy,dw,dh);
+  ctx.restore();
+  return;
+ }
+ const scale=Math.max(W/sw,H/sh)*currentZoom;
+ cropW=W/scale;cropH=H/scale;
  const sx=(sw-cropW)/2,sy=Math.max(0,Math.min(sh-cropH,(sh-cropH)*0.58));
  ctx.save();
  if(mirror){ctx.translate(W,0);ctx.scale(-1,1);ctx.drawImage(source,sx,sy,cropW,cropH,0,0,W,H)}
@@ -120,6 +152,11 @@ async function uploadAutomatically(dataUrl){
   setStatus('Permintaan unggah dikirim. Periksa folder Drive untuk memastikan foto tersimpan.');
  }catch(e){setStatus('Pengiriman ke Drive gagal. Unduh foto sebagai cadangan.')}
 }
+zoomButtons.forEach(btn=>btn.addEventListener('click',()=>{
+ currentZoom=Number(btn.dataset.zoom);
+ applyZoom();
+ setStatus('Zoom kamera diatur ke '+btn.textContent+'.');
+}));
 switchBtn.addEventListener('click',async()=>{
  if(switchingCamera)return;
  const nextFacing=currentFacing==='user'?'environment':'user';
