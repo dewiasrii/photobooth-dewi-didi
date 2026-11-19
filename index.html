@@ -38,35 +38,78 @@ button:disabled{opacity:.5;cursor:not-allowed}
 .note{font:11px/1.6 Arial,sans-serif;color:#7290ad;margin:8px auto 0;max-width:540px}
 .hidden{display:none!important}
 @media(max-width:600px){body{padding:10px 6px 20px}.booth{padding:6px;border-radius:14px}button{padding:11px 13px;font-size:12px}}
+
+/* Halaman pembuka */
+body.landing-open{display:flex;align-items:center;justify-content:center;padding:24px 12px}
+#landing{width:min(100%,760px);margin:auto;text-align:center}
+.landing-card{position:relative;overflow:hidden;padding:clamp(25px,5vw,48px) clamp(18px,5vw,46px);border:1px solid #bfd4e8;border-radius:24px;background:linear-gradient(145deg,#ffffffed,#edf6ffed);box-shadow:0 18px 48px #345b8020}
+.landing-card:before,.landing-card:after{content:"✧";position:absolute;color:#9bb8d6;font-size:34px;opacity:.7}
+.landing-card:before{top:14px;left:18px}.landing-card:after{right:18px;bottom:12px}
+.crest{width:64px;height:64px;margin:0 auto 15px;border:1px solid #c4d7e9;border-radius:50%;display:grid;place-items:center;background:linear-gradient(145deg,#fff,#e5f0fb);color:#527da5;font-size:30px;box-shadow:0 5px 16px #345b8018}
+#landing h1{font-size:clamp(30px,6vw,48px);margin:0 0 10px}
+.landing-subtitle{font:600 11px Arial,sans-serif;letter-spacing:3px;color:#6689ad}
+.landing-message{font-size:15px;line-height:1.65;margin:20px auto 24px;max-width:520px}
+.howto{margin:0 auto 25px;max-width:540px;text-align:left;padding:19px 21px;border:1px solid #d1e0ee;border-radius:16px;background:#ffffffb8}
+.howto h2{margin:0 0 13px;text-align:center;font-size:20px;font-weight:400}
+.howto ol{margin:0;padding-left:23px}
+.howto li{padding:5px 0 7px 5px;font:13px/1.55 Arial,sans-serif;color:#45698b}
+.howto li strong{color:#294e73}
+#startBtn{padding:13px 25px;font-size:14px}
+#boothPage{display:none}
+#boothPage.active{display:block}
+@media(max-width:600px){body.landing-open{padding:14px 10px}.landing-card{border-radius:19px}.howto{padding:16px}.howto li{font-size:12px}}
+
 </style>
 </head>
 <body>
 <main>
-<header>
-<h1>The Wedding Of<br>Dewi &amp; Didi</h1>
-<div class="date">06 DESEMBER 2026</div>
-<p class="intro">Abadikan momen bahagia bersama kami.<br>Siapkan senyum terbaikmu! ♡</p>
-</header>
-<section class="booth">
-<div class="stage">
-<video id="camera" autoplay playsinline muted></video>
-<canvas id="result"></canvas>
-<img id="frame" src="frame-dewi-didi.png" alt="">
-</div>
-<div class="controls">
-<button id="switchBtn" class="secondary">🔄 Kamera Belakang</button>
-<div class="zoom-controls" aria-label="Pengaturan zoom kamera">
-  <span>Zoom</span>
-  <button type="button" class="zoom-btn" data-zoom="0.5">0,5×</button>
-  <button type="button" class="zoom-btn active" data-zoom="1">1×</button>
-  <button type="button" class="zoom-btn" data-zoom="2">2×</button>
-</div>
-<button id="captureBtn" class="primary">📷 Ambil Foto</button>
-<button id="retakeBtn" class="secondary hidden">↻ Ambil Ulang</button>
-<button id="downloadBtn" class="primary hidden">↓ Unduh Foto</button>
-</div>
-<div id="status" class="status">Mengaktifkan kamera…</div>
-<p class="note">Posisikan wajah agak di atas tengah agar tidak tertutup papan nama. Gunakan cahaya cukup untuk hasil lebih tajam.</p>
+<section id="landing">
+  <div class="landing-card">
+    <div class="crest" aria-hidden="true">✧</div>
+    <h1>Photobooth Online<br>Dewi &amp; Didi</h1>
+    <div class="landing-subtitle">06 DESEMBER 2026</div>
+    <p class="landing-message">Abadikan momen bahagia dan bawa pulang kenangan manis dari hari istimewa kami.</p>
+    <div class="howto">
+      <h2>Tata Cara Foto</h2>
+      <ol>
+        <li><strong>Izinkan akses kamera.</strong> Pilih “Izinkan” saat browser meminta izin kamera.</li>
+        <li><strong>Atur kamera.</strong> Pilih kamera depan atau belakang, lalu sesuaikan zoom jika tersedia.</li>
+        <li><strong>Atur posisi.</strong> Berdiri di tempat yang cukup terang dan posisikan wajah di area foto.</li>
+        <li><strong>Ambil foto.</strong> Tekan tombol “Ambil Foto” saat sudah siap.</li>
+        <li><strong>Simpan kenangan.</strong> Tekan “Unduh Foto” untuk menyimpan hasilnya ke perangkatmu.</li>
+      </ol>
+    </div>
+    <button id="startBtn" class="primary">Mulai Photobooth ♡</button>
+  </div>
+</section>
+
+<section id="boothPage">
+  <header>
+    <h1>The Wedding Of<br>Dewi &amp; Didi</h1>
+    <div class="date">06 DESEMBER 2026</div>
+    <p class="intro">Abadikan momen bahagia bersama kami.<br>Siapkan senyum terbaikmu! ♡</p>
+  </header>
+  <section class="booth">
+    <div class="stage">
+      <video id="camera" autoplay playsinline muted></video>
+      <canvas id="result"></canvas>
+      <img id="frame" src="frame-dewi-didi.png" alt="">
+    </div>
+    <div class="controls">
+      <button id="switchBtn" class="secondary">🔄 Kamera Belakang</button>
+      <div class="zoom-controls" aria-label="Pengaturan zoom kamera">
+        <span>Zoom</span>
+        <button type="button" class="zoom-btn" data-zoom="0.5">0,5×</button>
+        <button type="button" class="zoom-btn active" data-zoom="1">1×</button>
+        <button type="button" class="zoom-btn" data-zoom="2">2×</button>
+      </div>
+      <button id="captureBtn" class="primary">📷 Ambil Foto</button>
+      <button id="retakeBtn" class="secondary hidden">↻ Ambil Ulang</button>
+      <button id="downloadBtn" class="primary hidden">↓ Unduh Foto</button>
+    </div>
+    <div id="status" class="status">Tekan “Mulai Photobooth” untuk mengaktifkan kamera.</div>
+    <p class="note">Posisikan wajah agak di atas tengah agar tidak tertutup papan nama. Gunakan cahaya cukup untuk hasil lebih tajam.</p>
+  </section>
 </section>
 </main>
 <script>
@@ -154,11 +197,11 @@ function drawPhoto(){
  latestDataUrl=canvas.toDataURL('image/jpeg',0.94);
 }
 async function uploadAutomatically(dataUrl){
- setStatus('Mengirim permintaan penyimpanan ke Google Drive…');
+ setStatus('Foto sedang disiapkan…');
  try{
   await fetch(UPLOAD_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({key:UPLOAD_KEY,image:dataUrl})});
-  setStatus('Permintaan unggah dikirim. Periksa folder Drive untuk memastikan foto tersimpan.');
- }catch(e){setStatus('Pengiriman ke Drive gagal. Unduh foto sebagai cadangan.')}
+  setStatus('Foto siap! Silakan unduh untuk menyimpan kenanganmu.');
+ }catch(e){setStatus('Foto siap. Silakan unduh untuk menyimpannya ke perangkatmu.')}
 }
 zoomButtons.forEach(btn=>btn.addEventListener('click',async()=>{
  currentZoom=Number(btn.dataset.zoom);
@@ -187,7 +230,14 @@ retakeBtn.addEventListener('click',()=>{
 downloadBtn.addEventListener('click',()=>{
  if(!latestDataUrl)return;const a=document.createElement('a');a.href=latestDataUrl;a.download='The_Wedding_Of_Dewi_Didi.jpg';document.body.appendChild(a);a.click();a.remove();
 });
-startCamera('user');
+document.body.classList.add('landing-open');
+document.getElementById('startBtn').addEventListener('click',async()=>{
+  document.getElementById('landing').style.display='none';
+  document.getElementById('boothPage').classList.add('active');
+  document.body.classList.remove('landing-open');
+  setStatus('Mengaktifkan kamera…');
+  await startCamera('user');
+});
 </script>
 </body>
 </html>
