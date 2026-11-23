@@ -238,8 +238,37 @@ retakeBtn.addEventListener('click',()=>{
  captureBtn.classList.remove('hidden');captureBtn.disabled=false;retakeBtn.classList.add('hidden');downloadBtn.classList.add('hidden');
  setStatus('Kamera siap. Posisikan wajah agak di atas tengah.');
 });
-downloadBtn.addEventListener('click',()=>{
- if(!latestDataUrl)return;const a=document.createElement('a');a.href=latestDataUrl;a.download='The_Wedding_Of_Dewi_Didi.jpg';document.body.appendChild(a);a.click();a.remove();
+downloadBtn.addEventListener('click',async()=>{
+ if(!latestDataUrl)return;
+ const filename='The_Wedding_Of_Dewi_Didi.jpg';
+ try{
+  // Ubah data foto menjadi File agar iPhone dapat menampilkan menu berbagi/simpan.
+  const base64=latestDataUrl.split(',')[1];
+  const binary=atob(base64);
+  const bytes=new Uint8Array(binary.length);
+  for(let i=0;i<binary.length;i++)bytes[i]=binary.charCodeAt(i);
+  const blob=new Blob([bytes],{type:'image/jpeg'});
+  const file=new File([blob],filename,{type:'image/jpeg'});
+  if(navigator.share&&navigator.canShare&&navigator.canShare({files:[file]})){
+   await navigator.share({files:[file],title:'Foto Dewi & Didi'});
+   setStatus('Pilih “Simpan Gambar” pada menu berbagi untuk menyimpan foto ke iPhone.');
+   return;
+  }
+  const imageUrl=URL.createObjectURL(blob);
+  const isIOS=/iPad|iPhone|iPod/.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
+  if(isIOS){
+   window.open(imageUrl,'_blank');
+   setStatus('Tekan dan tahan foto yang terbuka, lalu pilih “Simpan ke Foto”.');
+   setTimeout(()=>URL.revokeObjectURL(imageUrl),60000);
+  }else{
+   const a=document.createElement('a');a.href=imageUrl;a.download=filename;document.body.appendChild(a);a.click();a.remove();
+   setTimeout(()=>URL.revokeObjectURL(imageUrl),60000);
+   setStatus('Foto berhasil diunduh.');
+  }
+ }catch(e){
+  if(e&&e.name==='AbortError')return;
+  setStatus('Jika foto belum tersimpan, coba tekan dan tahan foto lalu pilih Simpan Gambar.');
+ }
 });
 document.body.classList.add('landing-open');
 document.getElementById('startBtn').addEventListener('click',async()=>{
