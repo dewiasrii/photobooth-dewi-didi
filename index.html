@@ -22,9 +22,10 @@ h1{font-weight:400;font-size:clamp(29px,6vw,43px);line-height:1.08;margin:0 0 9p
 #camera.rear{transform:none}
 #result{display:none;object-fit:fill}
 #frame{position:absolute;inset:0;width:100%;height:100%;object-fit:fill;pointer-events:none}
-.controls{display:flex;justify-content:center;align-items:center;gap:9px;flex-wrap:wrap;margin:14px 0 7px}
-.action-row{display:flex;justify-content:center;align-items:center;gap:9px;flex-wrap:wrap;width:100%}
-#shareBtn,#downloadBtn{min-width:145px}
+.controls{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-items:center;gap:9px;margin:14px 0 7px}
+.controls > button{width:100%;min-width:0}
+.action-row{grid-column:1 / -1;display:flex;justify-content:center;align-items:center;gap:9px;width:100%}
+#shareBtn,#downloadBtn{flex:1 1 0;min-width:0;white-space:nowrap}
 button{border:1px solid #b5cce3;border-radius:999px;padding:12px 17px;font:600 13px Arial,sans-serif;cursor:pointer}
 .primary{background:linear-gradient(135deg,#2e5c86,#5e8db9);color:white;box-shadow:0 5px 14px #24496d25}
 .secondary{background:#f5f9fe;color:#345b80}
@@ -32,7 +33,7 @@ button:disabled{opacity:.5;cursor:not-allowed}
 .status{font:12px/1.5 Arial,sans-serif;color:#52789e;min-height:19px;margin:10px 4px}
 .note{font:11px/1.6 Arial,sans-serif;color:#7290ad;margin:8px auto 0;max-width:540px}
 .hidden{display:none!important}
-@media(max-width:600px){body{padding:10px 6px 20px}.booth{padding:6px;border-radius:14px}button{padding:11px 13px;font-size:12px}}
+@media(max-width:600px){body{padding:10px 6px 20px}.booth{padding:6px;border-radius:14px}button{padding:11px 9px;font-size:12px}#shareBtn,#downloadBtn{padding-left:7px;padding-right:7px}}
 
 /* Halaman pembuka */
 body.landing-open{display:flex;align-items:center;justify-content:center;padding:24px 12px}
