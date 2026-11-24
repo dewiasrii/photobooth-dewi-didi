@@ -23,6 +23,8 @@ h1{font-weight:400;font-size:clamp(29px,6vw,43px);line-height:1.08;margin:0 0 9p
 #result{display:none;object-fit:fill}
 #frame{position:absolute;inset:0;width:100%;height:100%;object-fit:fill;pointer-events:none}
 .controls{display:flex;justify-content:center;align-items:center;gap:9px;flex-wrap:wrap;margin:14px 0 7px}
+.action-row{display:flex;justify-content:center;align-items:center;gap:9px;flex-wrap:wrap;width:100%}
+#shareBtn,#downloadBtn{min-width:145px}
 button{border:1px solid #b5cce3;border-radius:999px;padding:12px 17px;font:600 13px Arial,sans-serif;cursor:pointer}
 .primary{background:linear-gradient(135deg,#2e5c86,#5e8db9);color:white;box-shadow:0 5px 14px #24496d25}
 .secondary{background:#f5f9fe;color:#345b80}
@@ -101,10 +103,12 @@ body.landing-open{display:flex;align-items:center;justify-content:center;padding
     </div>
     <div class="controls">
       <button id="switchBtn" class="secondary">🔄 Kamera Belakang</button>
-      <button id="shareBtn" class="secondary hidden" type="button">↗ Bagikan Foto</button>
       <button id="captureBtn" class="primary">📷 Ambil Foto</button>
       <button id="retakeBtn" class="secondary hidden">↻ Ambil Ulang</button>
-      <button id="downloadBtn" class="primary hidden">↓ Unduh Foto</button>
+      <div class="action-row">
+        <button id="shareBtn" class="primary hidden" type="button">↗ Bagikan Foto</button>
+        <button id="downloadBtn" class="primary hidden">↓ Unduh Foto</button>
+      </div>
     </div>
     <div id="status" class="status">Tekan “Mulai Photobooth” untuk mengaktifkan kamera.</div>
     <p class="note">Posisikan wajah agak di atas tengah agar tidak tertutup papan nama. Gunakan cahaya cukup untuk hasil lebih tajam.</p>
